@@ -1,0 +1,55 @@
+# Build outputs
+/build/
+/dist/
+/out/
+/target/
+*.o
+*.obj
+*.exe
+*.dll
+*.so
+*.dylib
+*.a
+*.lib
+
+# Dependency / package manager caches
+/node_modules/
+/.venv/
+/venv/
+__pycache__/
+*.pyc
+/.gradle/
+/vendor/
+/.cargo/
+
+# Coverage & test artifacts
+/coverage/
+*.gcda
+*.gcno
+*.profraw
+.coverage
+htmlcov/
+
+# IDE / editor
+/.idea/
+/.vscode/
+*.swp
+.DS_Store
+
+# Tool caches
+/.mypy_cache/
+/.ruff_cache/
+/.pytest_cache/
+
+# Generated docs
+/docs/_site/
+/docs/doxygen/html/
+
+# Local agent / harness scratch (never commit)
+.questions
+.bugs
+.claude/settings.local.json
+
+# EADOS factory tooling — the .eados-core/ bundle is copied in to (re)generate this repo; it is
+# not part of the project's own source.
+/.eados-core/

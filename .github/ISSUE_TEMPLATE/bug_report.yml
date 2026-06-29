@@ -1,0 +1,38 @@
+name: Bug report
+description: Report a reproducible defect in egl-util-cpp
+labels: ["fix"]
+assignees: ["danielPoloWork"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for the report. A maintainer **reproduces and root-causes** before a
+        `docs/bugs/` record is opened, so a minimal reproduction is the most useful thing you
+        can provide. **Security issues do not go here** — see [`SECURITY.md`](../../SECURITY.md).
+  - type: input
+    id: version
+    attributes:
+      label: Affected version
+      placeholder: "vX.Y.Z (or commit SHA)"
+    validations:
+      required: true
+  - type: input
+    id: env
+    attributes:
+      label: Platform / toolchain
+      placeholder: "OS, C++20 version, build tool"
+    validations:
+      required: true
+  - type: textarea
+    id: repro
+    attributes:
+      label: Minimal reproduction
+      description: Steps to reproduce, or (ideally) a failing test.
+    validations:
+      required: true
+  - type: textarea
+    id: behavior
+    attributes:
+      label: Expected vs actual behavior
+    validations:
+      required: true
