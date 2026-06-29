@@ -47,7 +47,7 @@ setup.
 | # | Title | Status |
 |---|---|---|
 | 1 | Project bootstrap & CI | ⏳ in progress |
-| 2 | Foundations — Type Traits & Hashing | ⏳ planned |
+| 2 | Foundations — Type Traits & Hashing | ✅ done |
 | 3 | Memory & Resource Management | ⏳ planned |
 | 4 | Contiguous Containers | ⏳ planned |
 | 5 | Zero-Copy Strings | ⏳ planned |

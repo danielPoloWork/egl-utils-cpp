@@ -1,10 +1,11 @@
 name: pr-metadata
 
 # Standing rule (AGENTS.md §6.4): every pull request automatically gets its author as
-# assignee, exactly one type label derived from the branch prefix (feat/ -> feat, chore/ ->
-# chore, ...), and the current open release milestone. Projects are populated separately by
-# the repository Project's native "Auto-add to project" workflow (docs/workflow/github-setup.md),
-# because the default GITHUB_TOKEN cannot write GitHub Projects v2.
+# assignee and exactly one type label derived from the branch prefix (feat/ -> feat, chore/ ->
+# chore, ...). The roadmap milestone is NOT set here — it is chosen per PR by the author, who
+# knows which roadmap item the PR implements (GitHub milestones mirror the roadmap M1..M10).
+# Projects are populated separately by the repository Project's native "Auto-add to project"
+# workflow (docs/workflow/github-setup.md), because GITHUB_TOKEN cannot write GitHub Projects v2.
 #
 # Runs only for same-repo branches (a fork PR gets a read-only token and is curated by the
 # maintainer on merge). The job is idempotent: it only fills metadata that is missing.
@@ -20,7 +21,7 @@ permissions:
 
 jobs:
   metadata:
-    name: assignee + type label + milestone
+    name: assignee + type label
     runs-on: ubuntu-24.04
     if: github.event.pull_request.head.repo.full_name == github.repository
     steps:
@@ -56,15 +57,5 @@ jobs:
               core.warning(`Branch prefix '${prefix}' is not a known type; no type label applied.`);
             }
 
-            // 3. Current open release milestone (single open one, or the earliest due).
-            if (!pr.milestone) {
-              const ms = await github.rest.issues.listMilestones({
-                owner, repo, state: 'open', sort: 'due_on', direction: 'asc', per_page: 100,
-              });
-              if (ms.data.length > 0) {
-                await github.rest.issues.update({
-                  owner, repo, issue_number: pr.number, milestone: ms.data[0].number,
-                });
-                core.info(`Set milestone '${ms.data[0].title}'`);
-              }
-            }
+            // The roadmap milestone is intentionally NOT set here: it is assigned per PR by the
+            // author (it cannot be derived generically from a PR). See AGENTS.md §6.4 / ADR-0003.

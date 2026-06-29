@@ -6,6 +6,14 @@
 - **Related:** AGENTS.md §6.4, `.github/workflows/pr-metadata.yml`, `.github/labels.yml`,
   `docs/workflow/github-setup.md`
 
+> **Amendment (2026-06-30).** The automation does **not** set the milestone. An early version
+> assigned "the current open release milestone", which funneled every PR into the single
+> `v0.0.0` milestone (M1 and M2 work landed together). GitHub milestones now mirror the roadmap
+> one-to-one (`M1 … M10`, each carrying the roadmap goal + items as its description), are
+> **assigned per PR by the author** (who knows the roadmap item — it is not derivable generically
+> from a PR), and are **closed when their last PR merges**. Assignee and the type label remain
+> automated.
+
 ## Context
 
 AGENTS.md §6.4 requires every pull request to carry an assignee, exactly one type label,
@@ -25,9 +33,9 @@ Make PR metadata a standing rule enforced by automation rather than a manual ste
 1. A workflow, `.github/workflows/pr-metadata.yml`, runs on every same-repo pull request
    and idempotently fills any missing field: it assigns the PR author, applies exactly one
    **type label derived from the branch prefix** (`feat/`, `fix/`, `refactor/`, `perf/`,
-   `docs/`, `test/`, `build/`, `chore/`, `ci/`), and sets the current open release
-   milestone. The canonical label set (`.github/labels.yml`) is imported once via
-   `docs/workflow/github-setup.md`.
+   `docs/`, `test/`, `build/`, `chore/`, `ci/`). The canonical label set
+   (`.github/labels.yml`) is imported once via `docs/workflow/github-setup.md`. The roadmap
+   milestone is set per PR by the author (see the Amendment above), not by the workflow.
 2. A GitHub **Project (v2)** board for the repository is created and linked, with the
    project's native **"Auto-add to project"** workflow enabled so every new issue and PR is
    added automatically. The native workflow is used (rather than an action) because the
@@ -51,9 +59,9 @@ existed.
 
 ## Consequences
 
-- Every same-repo PR is auto-assigned, type-labeled, and milestoned with no manual step; the
-  `gh pr create` flags in §6.4 become a belt-and-braces fallback rather than the source of
-  truth.
+- Every same-repo PR is auto-assigned and type-labeled with no manual step; the milestone is
+  set per PR by the author, since GitHub milestones mirror the roadmap one-to-one. The
+  `gh pr create` flags in §6.4 are the fallback for the automated fields.
 - Branch naming becomes load-bearing: the `<type>/<slug>` convention now drives the label, so
   an unknown prefix yields a warning and no type label (caught in review).
 - One repository-level admin step is added to `github-setup.md` (create board + enable
