@@ -18,3 +18,4 @@ Status transitions: `Proposed` → `Accepted` → (`Superseded by ADR-XXXX` | `D
 |-----|-------|--------|
 | [0001](0001-record-architecture-decisions.md) | Record architecture decisions | Accepted |
 | [0002](0002-adopt-cross-language-source-layout.md) | Adopt the cross-language source layout | Accepted |
+| [0003](0003-automate-pr-metadata-and-enable-project-board.md) | Automate PR metadata and enable a project board | Accepted |

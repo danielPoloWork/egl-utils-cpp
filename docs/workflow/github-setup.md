@@ -88,6 +88,23 @@ gh api -X POST repos/$OWNER/$REPO/milestones -f title="v0.0.0" \
   -f state=open -f description="First release slice (Milestone 1)."
 ```
 
+## 6. Project board & auto-add (ADR-0003)
+
+Track the project on a GitHub Project (v2) board and add new issues/PRs automatically. The
+default `GITHUB_TOKEN` cannot write Projects v2, so this is a one-time owner step (the
+`gh project` commands need a token with the `project` scope: `gh auth refresh -s project`).
+
+```bash
+# Create the board and link it to the repository.
+gh project create --owner "$OWNER" --title "egl-util-cpp"
+# (note the project number it prints, then:)
+gh project link <number> --owner "$OWNER" --repo "$REPO"
+```
+
+Then enable native auto-add in the board UI: **Project → ⋯ → Workflows → "Auto-add to
+project" → enable** for issues and pull requests. This populates the board with no token at
+runtime; PR assignee/label/milestone are handled by `.github/workflows/pr-metadata.yml`.
+
 ## Re-running
 
 Every command here is idempotent or safely re-runnable. Re-run after changing labels, after a

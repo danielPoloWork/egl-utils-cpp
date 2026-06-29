@@ -1,0 +1,70 @@
+name: pr-metadata
+
+# Standing rule (AGENTS.md §6.4): every pull request automatically gets its author as
+# assignee, exactly one type label derived from the branch prefix (feat/ -> feat, chore/ ->
+# chore, ...), and the current open release milestone. Projects are populated separately by
+# the repository Project's native "Auto-add to project" workflow (docs/workflow/github-setup.md),
+# because the default GITHUB_TOKEN cannot write GitHub Projects v2.
+#
+# Runs only for same-repo branches (a fork PR gets a read-only token and is curated by the
+# maintainer on merge). The job is idempotent: it only fills metadata that is missing.
+
+on:
+  pull_request:
+    types: [opened, reopened, ready_for_review, synchronize]
+
+permissions:
+  contents: read
+  pull-requests: write
+  issues: write
+
+jobs:
+  metadata:
+    name: assignee + type label + milestone
+    runs-on: ubuntu-24.04
+    if: github.event.pull_request.head.repo.full_name == github.repository
+    steps:
+      - name: Apply PR metadata
+        uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
+        with:
+          script: |
+            const pr = context.payload.pull_request;
+            const { owner, repo } = context.repo;
+            const TYPES = ['feat', 'fix', 'refactor', 'perf', 'docs', 'test', 'build', 'chore', 'ci'];
+
+            // 1. Assignee — the PR author (skip bots and already-assigned PRs).
+            if (pr.assignees.length === 0 && pr.user && pr.user.type !== 'Bot') {
+              await github.rest.issues.addAssignees({
+                owner, repo, issue_number: pr.number, assignees: [pr.user.login],
+              });
+              core.info(`Assigned @${pr.user.login}`);
+            }
+
+            // 2. Exactly one type label, derived from the branch prefix.
+            const prefix = (pr.head.ref.split('/')[0] || '').toLowerCase();
+            if (TYPES.includes(prefix)) {
+              const present = pr.labels.map((l) => l.name);
+              for (const t of present.filter((n) => TYPES.includes(n) && n !== prefix)) {
+                await github.rest.issues.removeLabel({ owner, repo, issue_number: pr.number, name: t })
+                  .catch(() => {});
+              }
+              if (!present.includes(prefix)) {
+                await github.rest.issues.addLabels({ owner, repo, issue_number: pr.number, labels: [prefix] });
+                core.info(`Applied type label '${prefix}'`);
+              }
+            } else {
+              core.warning(`Branch prefix '${prefix}' is not a known type; no type label applied.`);
+            }
+
+            // 3. Current open release milestone (single open one, or the earliest due).
+            if (!pr.milestone) {
+              const ms = await github.rest.issues.listMilestones({
+                owner, repo, state: 'open', sort: 'due_on', direction: 'asc', per_page: 100,
+              });
+              if (ms.data.length > 0) {
+                await github.rest.issues.update({
+                  owner, repo, issue_number: pr.number, milestone: ms.data[0].number,
+                });
+                core.info(`Set milestone '${ms.data[0].title}'`);
+              }
+            }

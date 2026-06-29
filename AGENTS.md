@@ -137,13 +137,18 @@ The agent prepares the PR locally (branch pushed, draft body written) and report
 suggested `gh pr create` command — or invokes it if the user explicitly authorized PR
 creation in the current session. PR title = lead commit subject.
 
-**PR metadata — set on every PR:**
+**PR metadata — applied automatically on every PR** by
+[`.github/workflows/pr-metadata.yml`](.github/workflows/pr-metadata.yml) (ADR-0003); the
+`gh pr create` flags below are a fallback, not the source of truth:
 
-- **Assignee** — the maintainer (`--assignee @me`).
-- **Label** — **exactly one type label** matching the lead commit's Conventional-Commit
-  `type` (one PR = one type).
+- **Assignee** — the PR author.
+- **Label** — **exactly one type label**, derived from the branch prefix (`<type>/...`),
+  matching the lead commit's Conventional-Commit `type` (one PR = one type).
 - **Milestone** — the current open **release milestone** (per-release scheme, e.g.
   `vX.Y.Z`). Create it with `gh api repos/:owner/:repo/milestones` if absent.
+- **Project** — every PR/issue is auto-added to the repository's GitHub Project board via
+  the board's native *Auto-add to project* workflow (one-time setup in
+  [`docs/workflow/github-setup.md`](docs/workflow/github-setup.md)).
 
 ```bash
 gh pr create --title "<full Conventional-Commits subject>" --body-file <file> \

@@ -19,6 +19,9 @@ PR. A release PR moves the `[Unreleased]` entries into a new per-version file un
 - Version constants `D4NP_UTIL_VERSION_*` / `it::d4np::util::version_*` in `version.hpp`,
   and the aggregate umbrella header `it/d4np/util/util.hpp`.
 - `.clang-format` and `.clang-tidy` at the repo root.
+- Standing PR-metadata rule (`.github/workflows/pr-metadata.yml`, ADR-0003): auto-assigns the
+  author, derives the single type label from the branch prefix, and sets the open milestone;
+  project-board auto-add documented in `docs/workflow/github-setup.md`.
 
 ### Changed
 
