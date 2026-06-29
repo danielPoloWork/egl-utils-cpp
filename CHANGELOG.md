@@ -22,6 +22,8 @@ PR. A release PR moves the `[Unreleased]` entries into a new per-version file un
 - Standing PR-metadata rule (`.github/workflows/pr-metadata.yml`, ADR-0003): auto-assigns the
   author, derives the single type label from the branch prefix, and sets the open milestone;
   project-board auto-add documented in `docs/workflow/github-setup.md`.
+- Doxygen API-docs `docs` CMake target (`EGL_UTIL_BUILD_DOCS`) with a CI `docs` job that
+  builds it (roadmap 1.7).
 
 ### Changed
 
