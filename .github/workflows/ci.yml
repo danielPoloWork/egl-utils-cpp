@@ -163,6 +163,19 @@ jobs:
         shell: bash
         run: cmake --preset bench && cmake --build --preset bench
 
+  # API documentation gate — the Doxygen `docs` target must build.
+  docs:
+    name: docs / doxygen build
+    runs-on: ubuntu-24.04
+    env: { CC: gcc, CXX: g++ }
+    steps:
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+      - uses: lukka/get-cmake@591817e96fcad43505fb4eae36172462abb3a42e # v4.3.3
+      - run: sudo apt-get update && sudo apt-get install -y doxygen graphviz
+      - name: Configure + build the docs target
+        shell: bash
+        run: cmake --preset debug && cmake --build --preset debug --target docs
+
   # Data-race / concurrency gate — runs only when the project exposes concurrency.
   tsan:
     name: tsan / thread sanitizer

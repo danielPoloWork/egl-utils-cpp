@@ -19,6 +19,7 @@ endif()
 
 option(EGL_UTIL_BUILD_TESTS "Build the egl-util-cpp test suite" ${EGL_UTIL_IS_TOP_LEVEL})
 option(EGL_UTIL_BUILD_BENCH "Build the egl-util-cpp benchmark suite" ${EGL_UTIL_IS_TOP_LEVEL})
+option(EGL_UTIL_BUILD_DOCS "Add the 'docs' Doxygen target when Doxygen is available" ${EGL_UTIL_IS_TOP_LEVEL})
 
 # Emit a compile database for clang-tidy and editor tooling.
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
@@ -44,4 +45,28 @@ endif()
 
 if(EGL_UTIL_BUILD_BENCH)
     add_subdirectory(src/bench/cpp/it/d4np/util)
+endif()
+
+# --- API documentation (Doxygen) -----------------------------------------------------------
+# Adds an opt-in `docs` target (built with `cmake --build --preset <p> --target docs`); it is
+# not part of the default build, so a toolchain without Doxygen still builds the library.
+if(EGL_UTIL_BUILD_DOCS)
+    find_package(Doxygen)
+    if(Doxygen_FOUND)
+        set(DOXYGEN_PROJECT_NAME "egl-util-cpp")
+        set(DOXYGEN_PROJECT_NUMBER "${PROJECT_VERSION}")
+        set(DOXYGEN_PROJECT_BRIEF "${PROJECT_DESCRIPTION}")
+        set(DOXYGEN_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/docs/doxygen")
+        set(DOXYGEN_RECURSIVE YES)
+        set(DOXYGEN_EXTRACT_ALL YES)
+        set(DOXYGEN_GENERATE_HTML YES)
+        set(DOXYGEN_GENERATE_LATEX NO)
+        set(DOXYGEN_QUIET YES)
+        set(DOXYGEN_USE_MDFILE_AS_MAINPAGE "${CMAKE_CURRENT_SOURCE_DIR}/README.md")
+        doxygen_add_docs(
+            docs "${CMAKE_CURRENT_SOURCE_DIR}/src/main/cpp" "${CMAKE_CURRENT_SOURCE_DIR}/README.md"
+            COMMENT "Generating API documentation with Doxygen")
+    else()
+        message(STATUS "Doxygen not found; the 'docs' target is unavailable.")
+    endif()
 endif()

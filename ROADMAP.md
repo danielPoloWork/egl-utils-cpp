@@ -21,7 +21,7 @@ The thinnest slice that compiles, tests, and ships under the full quality bar.
 - [x] 1.4 Stand up the CI matrix (Linux x86_64 (GCC>=11, Clang>=14), Windows x86_64 (MSVC>=19.30), macOS arm64 (Apple Clang>=14)) with build + test + format + lint.
 - [x] 1.5 Seed the version constant (D4NP_UTIL_VERSION_{MAJOR,MINOR,PATCH,STRING}) in `src/main/cpp/it/d4np/util/version.hpp`.
 - [x] 1.6 Create the aggregate umbrella header util.hpp that includes every module header.
-- [ ] 1.7 Add the Doxygen configuration and a docs build target.
+- [x] 1.7 Add the Doxygen configuration and a docs build target.
 - [ ] 1.8 Establish the hybrid CMake model: an INTERFACE target for header-only use plus an optional STATIC target gating the compiled translation units.
 
 
