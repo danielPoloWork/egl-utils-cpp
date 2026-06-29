@@ -7,6 +7,7 @@
 #ifndef IT_D4NP_UTIL_UTIL_HPP
 #define IT_D4NP_UTIL_UTIL_HPP
 
+#include <it/d4np/util/type_traits.hpp>
 #include <it/d4np/util/version.hpp>
 
 #endif // IT_D4NP_UTIL_UTIL_HPP
