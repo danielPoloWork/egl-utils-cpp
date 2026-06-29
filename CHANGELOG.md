@@ -37,6 +37,9 @@ PR. A release PR moves the `[Unreleased]` entries into a new per-version file un
 - CI: build/test now run the full preset matrix (configure + build + test per cell); the
   Valgrind and benchmark jobs build their target before running; `clang-format`/`clang-tidy`
   are pinned for reproducibility.
+- Milestones: GitHub milestones now mirror the roadmap one-to-one (`M1 … M10`, each with a
+  description) instead of a single release milestone. `pr-metadata.yml` no longer sets the
+  milestone (the author sets the roadmap milestone per PR); ADR-0003 and AGENTS §6.4 updated.
 
 ### Deprecated
 

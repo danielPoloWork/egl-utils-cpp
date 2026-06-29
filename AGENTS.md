@@ -137,15 +137,18 @@ The agent prepares the PR locally (branch pushed, draft body written) and report
 suggested `gh pr create` command — or invokes it if the user explicitly authorized PR
 creation in the current session. PR title = lead commit subject.
 
-**PR metadata — applied automatically on every PR** by
+**PR metadata.** Assignee and the type label are applied **automatically** on every PR by
 [`.github/workflows/pr-metadata.yml`](.github/workflows/pr-metadata.yml) (ADR-0003); the
-`gh pr create` flags below are a fallback, not the source of truth:
+milestone and project are set as described below.
 
-- **Assignee** — the PR author.
+- **Assignee** — the PR author (automated; `--assignee @me` is the fallback).
 - **Label** — **exactly one type label**, derived from the branch prefix (`<type>/...`),
-  matching the lead commit's Conventional-Commit `type` (one PR = one type).
-- **Milestone** — the current open **release milestone** (per-release scheme, e.g.
-  `vX.Y.Z`). Create it with `gh api repos/:owner/:repo/milestones` if absent.
+  matching the lead commit's Conventional-Commit `type` (one PR = one type; automated).
+- **Milestone** — GitHub milestones mirror the **roadmap** one-to-one (`M1 … M10`, each with a
+  description from `ROADMAP.md`). The author sets the PR's milestone to the roadmap milestone it
+  advances — this is **not** automated (it cannot be derived generically from a PR). **Close** a
+  milestone when its last PR merges. Pre-1.0 each roadmap milestone still maps to a release per
+  §11.
 - **Project** — every PR/issue is auto-added to the repository's GitHub Project board via
   the board's native *Auto-add to project* workflow (one-time setup in
   [`docs/workflow/github-setup.md`](docs/workflow/github-setup.md)).
