@@ -24,6 +24,10 @@ PR. A release PR moves the `[Unreleased]` entries into a new per-version file un
   project-board auto-add documented in `docs/workflow/github-setup.md`.
 - Doxygen API-docs `docs` CMake target (`EGL_UTIL_BUILD_DOCS`) with a CI `docs` job that
   builds it (roadmap 1.7).
+- `it/d4np/util/type_traits.hpp` (roadmap 2.1, component #25): compile-time type utilities —
+  `always_false_v`, the detection idiom (`is_detected[_v]`, `detected_t`, `detected_or_t`),
+  `is_specialization_of[_v]`, and `is_any_of_v`; added to the umbrella header and covered by
+  static_assert + doctest tests.
 
 ### Changed
 
