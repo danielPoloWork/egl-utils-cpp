@@ -13,14 +13,14 @@ its section with a fresh `<milestone>.<task>` number; never renumber.
 
 The thinnest slice that compiles, tests, and ships under the full quality bar.
 
-- [ ] 1.1 Lay down the build system (CMake (>=3.20) + Ninja, CMakePresets.json) and a buildable skeleton under
+- [x] 1.1 Lay down the build system (CMake (>=3.20) + Ninja, CMakePresets.json) and a buildable skeleton under
       `src/main/cpp/it/d4np/util/`.
-- [ ] 1.2 Wire the test framework (doctest (FetchContent, test scope only)) with one passing smoke test under
+- [x] 1.2 Wire the test framework (doctest (FetchContent, test scope only)) with one passing smoke test under
       `src/test/cpp/it/d4np/util/`.
-- [ ] 1.3 Add formatter + linter configs (clang-format (LLVM-derived, 4-space, 120 col), clang-tidy (bugprone/cert/cppcoreguidelines/modernize/performance/portability/readability)) at the repo root.
-- [ ] 1.4 Stand up the CI matrix (Linux x86_64 (GCC>=11, Clang>=14), Windows x86_64 (MSVC>=19.30), macOS arm64 (Apple Clang>=14)) with build + test + format + lint.
-- [ ] 1.5 Seed the version constant (D4NP_UTIL_VERSION_{MAJOR,MINOR,PATCH,STRING}) in `src/main/cpp/it/d4np/util/version.hpp`.
-- [ ] 1.6 Create the aggregate umbrella header util.hpp that includes every module header.
+- [x] 1.3 Add formatter + linter configs (clang-format (LLVM-derived, 4-space, 120 col), clang-tidy (bugprone/cert/cppcoreguidelines/modernize/performance/portability/readability)) at the repo root.
+- [x] 1.4 Stand up the CI matrix (Linux x86_64 (GCC>=11, Clang>=14), Windows x86_64 (MSVC>=19.30), macOS arm64 (Apple Clang>=14)) with build + test + format + lint.
+- [x] 1.5 Seed the version constant (D4NP_UTIL_VERSION_{MAJOR,MINOR,PATCH,STRING}) in `src/main/cpp/it/d4np/util/version.hpp`.
+- [x] 1.6 Create the aggregate umbrella header util.hpp that includes every module header.
 - [ ] 1.7 Add the Doxygen configuration and a docs build target.
 - [ ] 1.8 Establish the hybrid CMake model: an INTERFACE target for header-only use plus an optional STATIC target gating the compiled translation units.
 
