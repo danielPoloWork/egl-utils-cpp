@@ -18,12 +18,17 @@ Checks: >
   -cppcoreguidelines-macro-to-enum,
   -cppcoreguidelines-macro-usage,
   -cppcoreguidelines-avoid-do-while,
+  -cppcoreguidelines-pro-bounds-constant-array-index,
+  -cppcoreguidelines-pro-bounds-avoid-unchecked-container-access,
   -cppcoreguidelines-avoid-non-const-global-variables,
   -cppcoreguidelines-avoid-magic-numbers,
   -readability-magic-numbers,
   -readability-identifier-length,
   -readability-function-cognitive-complexity,
   -readability-redundant-typename,
+  -readability-math-missing-parentheses,
+  -readability-uppercase-literal-suffix,
+  -bugprone-easily-swappable-parameters,
   -cert-err58-cpp
 WarningsAsErrors: '*'
 HeaderFilterRegex: 'it/d4np/util/'

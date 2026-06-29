@@ -28,6 +28,9 @@ PR. A release PR moves the `[Unreleased]` entries into a new per-version file un
   `always_false_v`, the detection idiom (`is_detected[_v]`, `detected_t`, `detected_or_t`),
   `is_specialization_of[_v]`, and `is_any_of_v`; added to the umbrella header and covered by
   static_assert + doctest tests.
+- `it/d4np/util/hash.hpp` (roadmap 2.2, component #24): constexpr `fnv1a_64`/`fnv1a_32`,
+  `murmur3_x86_32`, and `sha256` (+ `sha256_hex`), validated at compile time against published
+  reference vectors. Completes Milestone 2.
 
 ### Changed
 

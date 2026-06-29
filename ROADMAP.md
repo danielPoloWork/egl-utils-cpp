@@ -32,7 +32,7 @@ The thinnest slice that compiles, tests, and ships under the full quality bar.
 The compile-time building blocks every other module depends on.
 
 - [x] 2.1 Implement it::d4np::util::TypeTraits — constexpr type-property utilities for custom types (component #25).
-- [ ] 2.2 Implement it::d4np::util::HashAlgorithms — FNV-1a, MurmurHash3, and SHA-256 in constexpr form, validated with static_assert (component #24).
+- [x] 2.2 Implement it::d4np::util::HashAlgorithms — FNV-1a, MurmurHash3, and SHA-256 in constexpr form, validated with static_assert (component #24).
 
 
 ---
