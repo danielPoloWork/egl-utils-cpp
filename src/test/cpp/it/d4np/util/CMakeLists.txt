@@ -9,7 +9,7 @@ FetchContent_Declare(
     GIT_SHALLOW TRUE)
 FetchContent_MakeAvailable(doctest)
 
-add_executable(util_tests smoke_test.cpp type_traits_test.cpp)
+add_executable(util_tests smoke_test.cpp type_traits_test.cpp hash_test.cpp)
 target_link_libraries(util_tests PRIVATE egl-util::egl-util doctest::doctest)
 target_compile_features(util_tests PRIVATE cxx_std_20)
 
