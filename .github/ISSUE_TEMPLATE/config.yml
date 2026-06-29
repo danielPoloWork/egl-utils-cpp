@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Security vulnerability (private)
+    url: https://github.com/danielPoloWork/egl-util-cpp/security/advisories/new
+    about: Report privately via a security advisory — never as a public issue. See SECURITY.md.
+  - name: Question or idea
+    url: https://github.com/danielPoloWork/egl-util-cpp/discussions
+    about: Use Discussions for questions, proposals, and help.

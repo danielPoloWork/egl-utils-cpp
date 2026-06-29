@@ -1,0 +1,10 @@
+# clang-format configuration for egl-util-cpp — LLVM-derived, 4-space indent, 120 columns.
+# Matches ADR-0006 of the reference project and the toolchain profile.
+---
+Language: Cpp
+BasedOnStyle: LLVM
+IndentWidth: 4
+TabWidth: 4
+UseTab: Never
+ColumnLimit: 120
+...

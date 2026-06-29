@@ -1,0 +1,26 @@
+name: Feature request
+description: Propose a capability or change for egl-util-cpp
+labels: ["feat"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Substantial features become a `ROADMAP.md` item (and usually an ADR) before code.
+        Describe the problem first; the solution is a proposal, not a decision.
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: What user-facing problem or limitation does this address?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed solution
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered

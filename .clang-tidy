@@ -1,0 +1,29 @@
+# clang-tidy configuration for egl-util-cpp.
+# Enterprise check set from the toolchain profile (bugprone, cert, cppcoreguidelines,
+# modernize, performance, portability, readability). A small set of checks is disabled
+# because they conflict with legitimate idioms: version macros (preprocessor-checkable by
+# design), the doctest test-registration globals, and stylistic noise. CI runs clang-tidy
+# with --warnings-as-errors='*', so every enabled diagnostic is a hard failure.
+Checks: >
+  -*,
+  bugprone-*,
+  cert-*,
+  cppcoreguidelines-*,
+  modernize-*,
+  performance-*,
+  portability-*,
+  readability-*,
+  -modernize-use-trailing-return-type,
+  -modernize-macro-to-enum,
+  -cppcoreguidelines-macro-to-enum,
+  -cppcoreguidelines-macro-usage,
+  -cppcoreguidelines-avoid-do-while,
+  -cppcoreguidelines-avoid-non-const-global-variables,
+  -cppcoreguidelines-avoid-magic-numbers,
+  -readability-magic-numbers,
+  -readability-identifier-length,
+  -readability-function-cognitive-complexity,
+  -cert-err58-cpp
+WarningsAsErrors: '*'
+HeaderFilterRegex: 'it/d4np/util/'
+FormatStyle: file
