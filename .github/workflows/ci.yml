@@ -20,7 +20,10 @@ concurrency:
   cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 env:
-  CLANG_TOOLS_VERSION: "22.1.5"
+  # Pinned for reproducibility. clang-format and clang-tidy are released as separate PyPI
+  # packages whose patch versions do not line up, so they are pinned independently.
+  CLANG_FORMAT_VERSION: "22.1.5"
+  CLANG_TIDY_VERSION: "22.1.7"
 
 jobs:
   # ---------------------------------------------------------------------------
@@ -100,7 +103,7 @@ jobs:
         with:
           python-version: '3.12'
       - name: Install pinned clang-format
-        run: pip install "clang-format==${CLANG_TOOLS_VERSION}"
+        run: pip install "clang-format==${CLANG_FORMAT_VERSION}"
       - name: Verify all C/C++ sources are clean
         shell: bash
         run: |
@@ -119,7 +122,7 @@ jobs:
         with:
           python-version: '3.12'
       - name: Install pinned clang-tidy
-        run: pip install "clang-tidy==${CLANG_TOOLS_VERSION}"
+        run: pip install "clang-tidy==${CLANG_TIDY_VERSION}"
       - name: Configure debug to produce compile_commands.json
         run: cmake --preset debug
       - name: clang-tidy the diff
