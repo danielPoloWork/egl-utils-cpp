@@ -30,7 +30,7 @@ jobs:
           fetch-depth: 0
 
       - name: Install a recent CMake and Ninja
-        uses: lukka/get-cmake@e0566b3900d662ef5b1dc36fb560c4d2b1b6d6bd # v4.3.3
+        uses: lukka/get-cmake@591817e96fcad43505fb4eae36172462abb3a42e # v4.3.3
       - name: Set up MSVC environment
         if: matrix.toolchain == 'msvc'
         uses: ilammy/msvc-dev-cmd@v1
