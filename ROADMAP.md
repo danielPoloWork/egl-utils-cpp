@@ -5,7 +5,8 @@ flip its checkbox (`- [ ]` → `- [x]`) **in the same PR**. New work goes at the
 its section with a fresh `<milestone>.<task>` number; never renumber.
 
 - **Versioning start:** pre-1.0 milestone-driven.
-- **Session journal:** see [`docs/journal/`](docs/journal/). Latest checkpoint: _none yet_.
+- **Session journal:** see [`docs/journal/`](docs/journal/). Latest checkpoint:
+  [2026-06-30 — hybrid CMake model](docs/journal/2026/06/2026-06-30-hybrid-cmake-model.md).
 
 ---
 
@@ -22,7 +23,7 @@ The thinnest slice that compiles, tests, and ships under the full quality bar.
 - [x] 1.5 Seed the version constant (D4NP_UTIL_VERSION_{MAJOR,MINOR,PATCH,STRING}) in `src/main/cpp/it/d4np/util/version.hpp`.
 - [x] 1.6 Create the aggregate umbrella header util.hpp that includes every module header.
 - [x] 1.7 Add the Doxygen configuration and a docs build target.
-- [ ] 1.8 Establish the hybrid CMake model: an INTERFACE target for header-only use plus an optional STATIC target gating the compiled translation units.
+- [x] 1.8 Establish the hybrid CMake model: an INTERFACE target for header-only use plus an optional STATIC target gating the compiled translation units.
 
 
 ---
@@ -140,6 +141,6 @@ progress · ✅ done · ❎ N/A.
 | §1 | Objective & business context | 1.1 | ⏳ |
 | §2 | Functional requirements | 1.1, 1.2 | ⏳ |
 | §3 | Non-functional requirements | 1.3, 1.4 | ⏳ |
-| §4 | Logical architecture | 1.1 | ⏳ |
+| §4 | Logical architecture | 1.1, 1.8 | ⏳ |
 | §5 | Public interface | 1.2 | ⏳ |
 | §6 | Verification & test strategy | 1.2, 1.4 | ⏳ |

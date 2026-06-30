@@ -17,7 +17,8 @@
         "CMAKE_CXX_EXTENSIONS": "OFF",
         "CMAKE_POLICY_VERSION_MINIMUM": "3.5",
         "EGL_UTIL_BUILD_TESTS": "ON",
-        "EGL_UTIL_BUILD_BENCH": "ON"
+        "EGL_UTIL_BUILD_BENCH": "ON",
+        "EGL_UTIL_BUILD_STATIC": "ON"
       }
     },
     {

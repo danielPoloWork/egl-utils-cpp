@@ -27,6 +27,22 @@ ctest --preset debug --output-on-failure
 - **Supported platforms:** Linux x86_64 (GCC>=11, Clang>=14), Windows x86_64 (MSVC>=19.30), macOS arm64 (Apple Clang>=14).
 - Consumers import the public surface via: `#include <it/d4np/util/util.hpp>`.
 
+### Linking (hybrid model)
+
+The library ships two CMake targets ([ADR-0004](docs/adr/0004-adopt-hybrid-header-only-plus-static-build-model.md)):
+
+| Target | Kind | When to use |
+|---|---|---|
+| `egl-util::egl-util` | INTERFACE (header-only) | The default. Zero dependencies, nothing to link. |
+| `egl-util::egl-util-static` | STATIC (opt-in: `-DEGL_UTIL_BUILD_STATIC=ON`) | A strict superset that also provides the compiled components (the OS-API-heavy tier). |
+
+```cmake
+# Header-only (default):
+target_link_libraries(my_app PRIVATE egl-util::egl-util)
+# Or, when you need the compiled tier:
+target_link_libraries(my_app PRIVATE egl-util::egl-util-static)
+```
+
 See [`docs/development/local-build.md`](docs/development/local-build.md) for the full local
 setup.
 
@@ -46,7 +62,7 @@ setup.
 
 | # | Title | Status |
 |---|---|---|
-| 1 | Project bootstrap & CI | ⏳ in progress |
+| 1 | Project bootstrap & CI | ✅ done |
 | 2 | Foundations — Type Traits & Hashing | ✅ done |
 | 3 | Memory & Resource Management | ⏳ planned |
 | 4 | Contiguous Containers | ⏳ planned |

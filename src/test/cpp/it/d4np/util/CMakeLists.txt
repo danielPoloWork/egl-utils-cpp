@@ -9,8 +9,24 @@ FetchContent_Declare(
     GIT_SHALLOW TRUE)
 FetchContent_MakeAvailable(doctest)
 
-add_executable(util_tests smoke_test.cpp type_traits_test.cpp hash_test.cpp)
-target_link_libraries(util_tests PRIVATE egl-util::egl-util doctest::doctest)
+set(EGL_UTIL_TEST_SOURCES smoke_test.cpp type_traits_test.cpp hash_test.cpp)
+
+# When the compiled tier is enabled, link against it (a strict superset of the interface
+# tier, ADR-0004) and exercise its one ODR-bound symbol, library_version().
+if(EGL_UTIL_BUILD_STATIC)
+    list(APPEND EGL_UTIL_TEST_SOURCES library_version_test.cpp)
+    set(EGL_UTIL_TEST_TIER egl-util::egl-util-static)
+else()
+    set(EGL_UTIL_TEST_TIER egl-util::egl-util)
+endif()
+
+add_executable(util_tests ${EGL_UTIL_TEST_SOURCES})
+target_link_libraries(util_tests PRIVATE ${EGL_UTIL_TEST_TIER} doctest::doctest)
 target_compile_features(util_tests PRIVATE cxx_std_20)
+
+# doctest forward-declares std types (e.g. std::basic_ostream) by default; recent standard
+# libraries reject that once a TU also pulls in <string_view>/<ostream>. Make doctest include
+# the real std headers instead, uniformly across every TU in this binary.
+target_compile_definitions(util_tests PRIVATE DOCTEST_CONFIG_USE_STD_HEADERS)
 
 add_test(NAME util_tests COMMAND util_tests)

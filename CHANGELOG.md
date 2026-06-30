@@ -31,8 +31,17 @@ PR. A release PR moves the `[Unreleased]` entries into a new per-version file un
 - `it/d4np/util/hash.hpp` (roadmap 2.2, component #24): constexpr `fnv1a_64`/`fnv1a_32`,
   `murmur3_x86_32`, and `sha256` (+ `sha256_hex`), validated at compile time against published
   reference vectors. Completes Milestone 2.
+- Hybrid build model (roadmap 1.8, ADR-0004): alongside the header-only `egl-util::egl-util`
+  INTERFACE target, an optional STATIC tier `egl-util::egl-util-static` (gated by
+  `EGL_UTIL_BUILD_STATIC`, default OFF) compiles the translation units that need separate
+  compilation. Seeded with `it::d4np::util::library_version()` — the out-of-line counterpart
+  to `version_string`. Completes Milestone 1.
 
 ### Changed
+
+- Tests: `util_tests` now defines `DOCTEST_CONFIG_USE_STD_HEADERS` so doctest includes the
+  real `<ostream>`/`<istream>` instead of forward-declaring std types, which recent standard
+  libraries reject once a translation unit also pulls in `<string_view>`.
 
 - CI: build/test now run the full preset matrix (configure + build + test per cell); the
   Valgrind and benchmark jobs build their target before running; `clang-format`/`clang-tidy`

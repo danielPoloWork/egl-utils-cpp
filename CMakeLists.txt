@@ -1,6 +1,8 @@
-# egl-util-cpp — header-only C++20 high-performance utilities library.
-# The library itself is an INTERFACE (header-only) target with zero runtime dependencies;
-# test and benchmark dependencies are gated behind options so a consumer pays for nothing.
+# egl-util-cpp — C++20 high-performance utilities library.
+# The library follows a HYBRID model (ADR-0004): an INTERFACE (header-only) tier with zero
+# runtime dependencies, plus an optional STATIC tier that gates the compiled translation
+# units. Test, benchmark, docs, and the static tier are all gated behind options so a
+# header-only consumer pays for nothing.
 cmake_minimum_required(VERSION 3.20)
 
 project(
@@ -20,6 +22,8 @@ endif()
 option(EGL_UTIL_BUILD_TESTS "Build the egl-util-cpp test suite" ${EGL_UTIL_IS_TOP_LEVEL})
 option(EGL_UTIL_BUILD_BENCH "Build the egl-util-cpp benchmark suite" ${EGL_UTIL_IS_TOP_LEVEL})
 option(EGL_UTIL_BUILD_DOCS "Add the 'docs' Doxygen target when Doxygen is available" ${EGL_UTIL_IS_TOP_LEVEL})
+# Header-only is the default contract; the compiled STATIC tier is strictly opt-in (ADR-0004).
+option(EGL_UTIL_BUILD_STATIC "Build the optional compiled STATIC library tier" OFF)
 
 # Emit a compile database for clang-tidy and editor tooling.
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
@@ -28,14 +32,11 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 # are stable across generators.
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}")
 
-# --- The header-only library ---------------------------------------------------------------
-add_library(egl-util INTERFACE)
-add_library(egl-util::egl-util ALIAS egl-util)
-
-target_include_directories(
-    egl-util INTERFACE "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src/main/cpp>"
-                       "$<INSTALL_INTERFACE:include>")
-target_compile_features(egl-util INTERFACE cxx_std_20)
+# --- The library targets (hybrid INTERFACE + optional STATIC tier) -------------------------
+# The include root that maps `#include <it/d4np/util/...>` onto the source tree; passed to
+# the component CMakeLists so both tiers share one definition.
+set(EGL_UTIL_SRC_MAIN "${CMAKE_CURRENT_SOURCE_DIR}/src/main/cpp")
+add_subdirectory(src/main/cpp/it/d4np/util)
 
 # --- Tests & benchmarks --------------------------------------------------------------------
 if(EGL_UTIL_BUILD_TESTS)
