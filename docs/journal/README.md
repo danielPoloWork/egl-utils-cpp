@@ -13,8 +13,10 @@ At the close of a state-changing session, the agent:
 
 ## Index
 
-_No checkpoints yet._
-
 ### 2026
 
 _(newest first)_
+
+#### June
+
+- [2026-06-30 — Hybrid CMake model (roadmap 1.8)](2026/06/2026-06-30-hybrid-cmake-model.md)
