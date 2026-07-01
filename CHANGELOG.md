@@ -60,6 +60,12 @@ PR. A release PR moves the `[Unreleased]` entries into a new per-version file un
   lookup (`find`/`contains`/`count`/`lower_bound`/`upper_bound`) and unique insertion.
   Initializer-list / range / comparator constructors; `erase`, `reserve`, const iterators.
   First of the Milestone-4 flat containers. Added to the umbrella header.
+- `it/d4np/util/flat_map.hpp` (roadmap 4.2, component #14, ADR-0009/ADR-0010): `FlatMap<Key,
+  Value, Compare>`, an ordered map stored as a single sorted, contiguous `std::vector` of pairs.
+  O(log n) `find`/`contains`/`count`/`at`/`lower_bound`/`upper_bound`; `insert`, `operator[]`,
+  and `erase`. The whole interface is `constexpr` — construction sorts via `std::sort` at
+  runtime and via sorted insertion during constant evaluation — so a `FlatMap` can be built and
+  queried behind a `static_assert`. Added to the umbrella header.
 
 ### Changed
 

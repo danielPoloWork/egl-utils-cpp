@@ -7,6 +7,7 @@
 #ifndef IT_D4NP_UTIL_UTIL_HPP
 #define IT_D4NP_UTIL_UTIL_HPP
 
+#include <it/d4np/util/flat_map.hpp>
 #include <it/d4np/util/flat_set.hpp>
 #include <it/d4np/util/hash.hpp>
 #include <it/d4np/util/heap_array.hpp>
