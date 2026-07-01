@@ -19,6 +19,7 @@ _(newest first)_
 
 #### July
 
+- [2026-07-01 — FlatSet<T> (roadmap 4.1)](2026/07/2026-07-01-flat-set.md)
 - [2026-07-01 — ObjectPool<T> (roadmap 3.4) — Milestone 3 complete](2026/07/2026-07-01-object-pool.md)
 - [2026-07-01 — StackAllocator<Size> (roadmap 3.3)](2026/07/2026-07-01-stack-allocator.md)
 - [2026-07-01 — HeapArray<T> (roadmap 3.2)](2026/07/2026-07-01-heap-array.md)
