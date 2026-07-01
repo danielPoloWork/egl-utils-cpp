@@ -33,3 +33,10 @@ Checks: >
 WarningsAsErrors: '*'
 HeaderFilterRegex: 'it/d4np/util/'
 FormatStyle: file
+CheckOptions:
+  # doctest's assertion macros (e.g. CHECK_THROWS_AS) expand to their own internal
+  # `remove_reference<...>::type` trait, which modernize-type-traits matches and then blames on
+  # the macro-use line in our tests. Skip trait matches that originate inside a macro expansion;
+  # the check still applies to our own hand-written code.
+  - key: modernize-type-traits.IgnoreMacros
+    value: "true"
