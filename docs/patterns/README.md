@@ -27,11 +27,9 @@ in `src/main/...`, ADR `Accepted`) · `Considered` · `Rejected` · `Superseded`
 
 ## Rejected
 
-_No rejections recorded yet._
-
 | # | Pattern | Considered for | Rejected because | ADR / PR |
 |---|---------|----------------|------------------|----------|
-| — | —       | —              | —                | —        |
+| 1 | Builder | `StringBuilder` (component #10) | `StringBuilder` is a fluent string accumulator, not the GoF Builder — there is no director, no product family, and no separation of construction from representation. Labelling it "Builder" would be a force-fit (AGENTS §8); its fluent `append` chain is an idiom, not a pattern adoption. | roadmap 5.2 |
 
 ## Superseded
 

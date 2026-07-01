@@ -76,6 +76,12 @@ PR. A release PR moves the `[Unreleased]` entries into a new per-version file un
   between occurrences of a `std::string_view` delimiter as a `std::string_view` borrowing the
   original text (no copies, no heap). Empty fields are preserved (`n` delimiters → `n + 1`
   tokens). First of the Milestone-5 zero-copy string utilities. Added to the umbrella header.
+- `it/d4np/util/string_builder.hpp` (roadmap 5.2, component #10): `StringBuilder`, a fluent,
+  preallocation-friendly builder over an owned `std::string`. Chainable `append` (and
+  `operator<<`) for `std::string_view`, `char`, and integers (via `std::to_chars`);
+  `reserve`/`clear`/`size`/`capacity`; `view()`, `str() const&` (copy) and `str() &&` (move-out,
+  leaving the builder empty). Added to the umbrella header. (The GoF Builder pattern was
+  considered and rejected as a force-fit — see `docs/patterns/README.md`.)
 
 ### Changed
 
