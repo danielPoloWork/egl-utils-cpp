@@ -6,7 +6,7 @@ its section with a fresh `<milestone>.<task>` number; never renumber.
 
 - **Versioning start:** pre-1.0 milestone-driven.
 - **Session journal:** see [`docs/journal/`](docs/journal/). Latest checkpoint:
-  [2026-07-01 — StackAllocator<Size>](docs/journal/2026/07/2026-07-01-stack-allocator.md).
+  [2026-07-01 — ObjectPool<T>](docs/journal/2026/07/2026-07-01-object-pool.md).
 
 ---
 
@@ -45,7 +45,7 @@ RAII-driven, leak-free allocation primitives, validated under ASan/Valgrind.
 - [x] 3.1 Implement UniqueRef<T> — non-null unique-ownership pointer (component #2).
 - [x] 3.2 Implement HeapArray<T> — fixed-size, bounds-checked heap array (component #4).
 - [x] 3.3 Implement StackAllocator<Size> — stack-backed bump allocator (component #3).
-- [ ] 3.4 Implement ObjectPool<T> — thread-safe O(1) object pool (component #1).
+- [x] 3.4 Implement ObjectPool<T> — thread-safe O(1) object pool (component #1).
 
 
 ---
@@ -139,8 +139,8 @@ progress · ✅ done · ❎ N/A.
 | Spec § | Requirement | Roadmap items | Status |
 |--------|-------------|---------------|--------|
 | §1 | Objective & business context | 1.1 | ⏳ |
-| §2 | Functional requirements | 1.1, 1.2, 3.1, 3.2, 3.3 | ⏳ |
+| §2 | Functional requirements | 1.1, 1.2, 3.1, 3.2, 3.3, 3.4 | ⏳ |
 | §3 | Non-functional requirements | 1.3, 1.4 | ⏳ |
 | §4 | Logical architecture | 1.1, 1.8 | ⏳ |
-| §5 | Public interface | 1.2, 3.1, 3.2, 3.3 | ⏳ |
+| §5 | Public interface | 1.2, 3.1, 3.2, 3.3, 3.4 | ⏳ |
 | §6 | Verification & test strategy | 1.2, 1.4 | ⏳ |

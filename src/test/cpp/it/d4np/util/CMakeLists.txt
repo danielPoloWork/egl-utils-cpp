@@ -9,8 +9,11 @@ FetchContent_Declare(
     GIT_SHALLOW TRUE)
 FetchContent_MakeAvailable(doctest)
 
+# ObjectPool's concurrency test uses std::thread, which needs the platform threads library.
+find_package(Threads REQUIRED)
+
 set(EGL_UTIL_TEST_SOURCES smoke_test.cpp type_traits_test.cpp hash_test.cpp unique_ref_test.cpp
-                          heap_array_test.cpp stack_allocator_test.cpp)
+                          heap_array_test.cpp stack_allocator_test.cpp object_pool_test.cpp)
 
 # When the compiled tier is enabled, link against it (a strict superset of the interface
 # tier, ADR-0004) and exercise its one ODR-bound symbol, library_version().
@@ -22,7 +25,7 @@ else()
 endif()
 
 add_executable(util_tests ${EGL_UTIL_TEST_SOURCES})
-target_link_libraries(util_tests PRIVATE ${EGL_UTIL_TEST_TIER} doctest::doctest)
+target_link_libraries(util_tests PRIVATE ${EGL_UTIL_TEST_TIER} doctest::doctest Threads::Threads)
 target_compile_features(util_tests PRIVATE cxx_std_20)
 
 # doctest forward-declares std types (e.g. std::basic_ostream) by default; recent standard

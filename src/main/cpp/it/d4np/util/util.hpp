@@ -9,6 +9,7 @@
 
 #include <it/d4np/util/hash.hpp>
 #include <it/d4np/util/heap_array.hpp>
+#include <it/d4np/util/object_pool.hpp>
 #include <it/d4np/util/stack_allocator.hpp>
 #include <it/d4np/util/type_traits.hpp>
 #include <it/d4np/util/unique_ref.hpp>

@@ -50,6 +50,11 @@ PR. A release PR moves the `[Unreleased]` entries into a new per-version file un
   `std::bad_alloc` on exhaustion) and typed `allocate_uninitialized<T>()`; wholesale reclamation
   via `reset()` and scoped reclamation via `mark()`/`rewind()`; `capacity`/`used`/`remaining`.
   Non-copyable and non-movable. Added to the umbrella header.
+- `it/d4np/util/object_pool.hpp` (roadmap 3.4, component #1, ADR-0008): `ObjectPool<T>`, a
+  thread-safe, fixed-capacity pool of pre-allocated objects implementing the **Object Pool**
+  pattern (first catalogued pattern). O(1) mutex-guarded `try_acquire()` → `std::optional<Handle>`
+  and RAII release; value-initialized or factory-constructed slots; `capacity`/`available`/
+  `in_use`. Verified under ThreadSanitizer. Added to the umbrella header. Completes Milestone 3.
 
 ### Changed
 
