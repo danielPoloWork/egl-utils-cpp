@@ -27,3 +27,4 @@ Status transitions: `Proposed` → `Accepted` → (`Superseded by ADR-XXXX` | `D
 | [0009](0009-adopt-flat-sorted-contiguous-containers.md) | Adopt flat (sorted-contiguous) associative containers | Accepted |
 | [0010](0010-flatmap-constexpr-construction.md) | `FlatMap<Key, Value>` constexpr support and construction strategy | Accepted |
 | [0011](0011-circular-buffer-ring-semantics.md) | `CircularBuffer<T>` ring-buffer semantics | Accepted |
+| [0012](0012-string-formatter-compile-time-validation.md) | `StringFormatter` compile-time format-string validation strategy | Accepted |

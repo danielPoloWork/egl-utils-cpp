@@ -6,7 +6,7 @@ its section with a fresh `<milestone>.<task>` number; never renumber.
 
 - **Versioning start:** pre-1.0 milestone-driven.
 - **Session journal:** see [`docs/journal/`](docs/journal/). Latest checkpoint:
-  [2026-07-01 — StringBuilder](docs/journal/2026/07/2026-07-01-string-builder.md).
+  [2026-07-01 — StringFormatter](docs/journal/2026/07/2026-07-01-string-formatter.md).
 
 ---
 
@@ -67,7 +67,7 @@ Allocation-light string construction, splitting, and type-safe formatting.
 
 - [x] 5.1 Implement StringSplitter — string_view-based, zero-allocation splitter (component #11).
 - [x] 5.2 Implement StringBuilder — preallocated fluent builder (component #10).
-- [ ] 5.3 Implement StringFormatter — compile-time type-safe formatter (component #12).
+- [x] 5.3 Implement StringFormatter — compile-time type-safe formatter (component #12).
 
 
 ---
@@ -139,8 +139,8 @@ progress · ✅ done · ❎ N/A.
 | Spec § | Requirement | Roadmap items | Status |
 |--------|-------------|---------------|--------|
 | §1 | Objective & business context | 1.1 | ⏳ |
-| §2 | Functional requirements | 1.1, 1.2, 3.1, 3.2, 3.3, 3.4, 4.1, 4.2, 4.3, 5.1, 5.2 | ⏳ |
+| §2 | Functional requirements | 1.1, 1.2, 3.1, 3.2, 3.3, 3.4, 4.1, 4.2, 4.3, 5.1, 5.2, 5.3 | ⏳ |
 | §3 | Non-functional requirements | 1.3, 1.4 | ⏳ |
 | §4 | Logical architecture | 1.1, 1.8 | ⏳ |
-| §5 | Public interface | 1.2, 3.1, 3.2, 3.3, 3.4, 4.1, 4.2, 4.3, 5.1, 5.2 | ⏳ |
+| §5 | Public interface | 1.2, 3.1, 3.2, 3.3, 3.4, 4.1, 4.2, 4.3, 5.1, 5.2, 5.3 | ⏳ |
 | §6 | Verification & test strategy | 1.2, 1.4 | ⏳ |

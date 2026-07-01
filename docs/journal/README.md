@@ -19,6 +19,7 @@ _(newest first)_
 
 #### July
 
+- [2026-07-01 — StringFormatter (roadmap 5.3) — Milestone 5 complete](2026/07/2026-07-01-string-formatter.md)
 - [2026-07-01 — StringBuilder (roadmap 5.2)](2026/07/2026-07-01-string-builder.md)
 - [2026-07-01 — StringSplitter (roadmap 5.1)](2026/07/2026-07-01-string-splitter.md)
 - [2026-07-01 — CircularBuffer<T> (roadmap 4.3) — Milestone 4 complete](2026/07/2026-07-01-circular-buffer.md)
