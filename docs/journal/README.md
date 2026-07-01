@@ -19,6 +19,7 @@ _(newest first)_
 
 #### July
 
+- [2026-07-02 — TaskFuture (roadmap 6.3)](2026/07/2026-07-02-task-future.md)
 - [2026-07-01 — ReaderWriterLock (roadmap 6.2)](2026/07/2026-07-01-reader-writer-lock.md)
 - [2026-07-01 — Semaphore (roadmap 6.1)](2026/07/2026-07-01-semaphore.md)
 - [2026-07-01 — StringFormatter (roadmap 5.3) — Milestone 5 complete](2026/07/2026-07-01-string-formatter.md)
