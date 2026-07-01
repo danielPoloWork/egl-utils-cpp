@@ -93,8 +93,9 @@ template <typename T> class LockFreeQueue {
             const auto gap = static_cast<std::ptrdiff_t>(seq - (pos + 1));
             if (gap == 0) { // the slot holds the element for exactly this ticket
                 if (dequeue_pos_.compare_exchange_weak(pos, pos + 1, std::memory_order_relaxed)) {
-                    std::optional<T> result{std::move(*slot.value)};
-                    slot.value.reset();
+                    std::optional<T> result{std::move(slot.value)};
+                    slot.value.reset(); // moving the optional leaves it engaged; destroy the husk
+
                     slot.sequence.store(pos + mask_ + 1, std::memory_order_release); // publish the vacancy (next lap)
                     return result;
                 }

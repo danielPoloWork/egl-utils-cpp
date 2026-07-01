@@ -79,10 +79,11 @@ TEST_CASE("the ring survives many laps of wrap-around") {
 TEST_CASE("move-only payloads flow through") {
     LockFreeQueue<std::unique_ptr<int>> queue{4};
     CHECK(queue.try_push(std::make_unique<int>(7)));
-    const std::optional<std::unique_ptr<int>> popped = queue.try_pop();
-    REQUIRE(popped.has_value());
-    REQUIRE(*popped != nullptr);
-    CHECK(**popped == 7);
+    // value_or instead of dereferencing: bugprone-unchecked-optional-access cannot see
+    // through doctest's REQUIRE, so avoid optional access that needs a visible guard.
+    const std::unique_ptr<int> payload = queue.try_pop().value_or(nullptr); // rvalue: moves the payload out
+    REQUIRE(payload != nullptr);
+    CHECK(*payload == 7);
 }
 
 TEST_CASE("undelivered elements are destroyed with the queue") {
