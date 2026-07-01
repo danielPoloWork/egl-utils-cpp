@@ -28,3 +28,4 @@ Status transitions: `Proposed` → `Accepted` → (`Superseded by ADR-XXXX` | `D
 | [0010](0010-flatmap-constexpr-construction.md) | `FlatMap<Key, Value>` constexpr support and construction strategy | Accepted |
 | [0011](0011-circular-buffer-ring-semantics.md) | `CircularBuffer<T>` ring-buffer semantics | Accepted |
 | [0012](0012-string-formatter-compile-time-validation.md) | `StringFormatter` compile-time format-string validation strategy | Accepted |
+| [0013](0013-semaphore-monitor-based-implementation.md) | `Semaphore` monitor-based implementation over mutex + condition variable | Accepted |

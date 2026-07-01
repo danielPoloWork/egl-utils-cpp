@@ -67,7 +67,7 @@ setup.
 | 3 | Memory & Resource Management | ✅ done |
 | 4 | Contiguous Containers | ✅ done |
 | 5 | Zero-Copy Strings | ✅ done |
-| 6 | Concurrency & Multithreading | ⏳ planned |
+| 6 | Concurrency & Multithreading | ⏳ in progress |
 | 7 | Diagnostics & Instrumentation | ⏳ planned |
 | 8 | Parsing & Input | ⏳ planned |
 | 9 | I/O & Networking | ⏳ planned |
