@@ -15,6 +15,7 @@
 #include <it/d4np/util/object_pool.hpp>
 #include <it/d4np/util/stack_allocator.hpp>
 #include <it/d4np/util/string_builder.hpp>
+#include <it/d4np/util/string_formatter.hpp>
 #include <it/d4np/util/string_splitter.hpp>
 #include <it/d4np/util/type_traits.hpp>
 #include <it/d4np/util/unique_ref.hpp>

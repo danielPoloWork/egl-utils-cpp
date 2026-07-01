@@ -82,6 +82,14 @@ PR. A release PR moves the `[Unreleased]` entries into a new per-version file un
   `reserve`/`clear`/`size`/`capacity`; `view()`, `str() const&` (copy) and `str() &&` (move-out,
   leaving the builder empty). Added to the umbrella header. (The GoF Builder pattern was
   considered and rejected as a force-fit — see `docs/patterns/README.md`.)
+- `it/d4np/util/string_formatter.hpp` (roadmap 5.3, component #12, ADR-0012): `StringFormatter`,
+  a compile-time type-safe, `std::format`-like formatter. The format string is a consteval-
+  validated `FormatString<Args...>` — malformed strings and placeholder/argument count
+  mismatches fail the build at the call site — and arguments are constrained by the
+  `Formattable` concept (string-like, `char`, `bool`, integers, `float`/`double`, the latter
+  rendered shortest-round-trip via `std::to_chars` where available). Positional `{}`
+  placeholders with `{{`/`}}` escapes; `format` returns a `std::string`, `format_to` appends
+  into a caller-supplied `StringBuilder`. Added to the umbrella header. Completes Milestone 5.
 
 ### Changed
 
