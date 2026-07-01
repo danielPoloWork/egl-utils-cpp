@@ -15,10 +15,11 @@
   refused** — ThreadPool (6.5) is what would give them an executor; the shared state is
   private so they can be added later without an API break.
 - **Error model:** misuse → `std::logic_error`; abandoned promise → `BrokenTaskPromise`
-  (first custom exception type in the library) thrown from `get()`. Design nicety: the
-  shared state's variant has a dedicated *abandoned* alternative (trivial tag), so the
-  promise destructor's abandonment path is genuinely `noexcept` — the `BrokenTaskPromise`
-  object is constructed in the getter's thread, not allocated during promise teardown.
+  (first custom exception type in the library) thrown from `get()`. Design nicety:
+  abandonment is a plain `bool` beside the result variant, so the promise destructor's
+  abandonment path is genuinely `noexcept` — the `BrokenTaskPromise` object is constructed
+  in the getter's thread, not allocated during promise teardown. (First cut used a trivial
+  variant alternative; CI tidy rejected it — see below.)
 - Move semantics subtlety handled: `TaskPromise` move *assignment* abandons the
   currently-owned unsatisfied state before adopting the other's (default would silently
   strand the old future forever). Covered by a test.
@@ -33,6 +34,12 @@
   the move-out path, and converting `set_value` (`const char*` → `std::string`).
 - `[[nodiscard]]` calls inside `CHECK_THROWS_AS` need `static_cast<void>(...)` or the
   discarded-result warning fires under warnings-as-errors.
+- **CI-only tidy finding** (local MSVC-header runs cannot reproduce it, see
+  [[local-verify-toolchain]]): on libstdc++, `variant::emplace` returns `std::get<N>(*this)`,
+  whose valueless-by-exception check has a `bad_variant_access` throw path —
+  `bugprone-exception-escape` flags any `noexcept` function that calls `emplace`, even for a
+  nothrow-constructible alternative. Fix: don't emplace in `noexcept` paths (abandonment
+  became a `bool` flag beside the variant).
 
 ## Project state
 

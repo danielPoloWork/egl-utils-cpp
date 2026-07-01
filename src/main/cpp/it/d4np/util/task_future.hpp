@@ -36,15 +36,15 @@ namespace detail {
 /// `void` has no value to store; an empty tag stands in for it inside the shared state.
 struct VoidValue {};
 
-/// Marks a state whose promise died unsatisfied. A trivial tag (instead of an eagerly
-/// allocated exception_ptr) keeps the promise's abandonment path noexcept; the
-/// BrokenTaskPromise itself is constructed in the getter's thread.
-struct AbandonedTag {};
-
 template <typename T> using FutureValue = std::conditional_t<std::is_void_v<T>, VoidValue, T>;
 
 /// The monitor-protected rendezvous between one TaskPromise and one TaskFuture. The variant
-/// alternatives, by index: 0 = still empty, 1 = value, 2 = exception, 3 = abandoned.
+/// alternatives, by index: 0 = still empty, 1 = value, 2 = exception. Abandonment is a plain
+/// bool beside the variant (instead of an eagerly allocated exception_ptr or a variant
+/// alternative) so the promise's abandonment path is provably nothrow — libstdc++'s
+/// variant::emplace has a bad_variant_access throw path on its return that trips
+/// bugprone-exception-escape inside noexcept functions. The BrokenTaskPromise itself is
+/// constructed in the getter's thread.
 template <typename T> class SharedTaskState {
   public:
     template <typename... Args> void set_value(Args &&...args) {
@@ -66,13 +66,13 @@ template <typename T> class SharedTaskState {
     }
 
     /// Called when the owning promise dies: an unsatisfied state becomes abandoned; a
-    /// satisfied one is left untouched. Never throws (the tag is trivially constructible).
+    /// satisfied one is left untouched. Never throws (the flag flip cannot fail).
     void abandon() noexcept {
         bool became_abandoned = false;
         {
             const std::scoped_lock lock{mutex_};
-            if (result_.index() == 0) {
-                result_.template emplace<3>();
+            if (result_.index() == 0 && !abandoned_) {
+                abandoned_ = true;
                 became_abandoned = true;
             }
         }
@@ -83,35 +83,35 @@ template <typename T> class SharedTaskState {
 
     [[nodiscard]] bool ready() const {
         const std::scoped_lock lock{mutex_};
-        return result_.index() != 0;
+        return has_outcome();
     }
 
     void wait() const {
         std::unique_lock<std::mutex> lock{mutex_};
-        ready_.wait(lock, [this] { return result_.index() != 0; });
+        ready_.wait(lock, [this] { return has_outcome(); });
     }
 
     template <typename Rep, typename Period>
     [[nodiscard]] bool wait_for(const std::chrono::duration<Rep, Period> &timeout) const {
         std::unique_lock<std::mutex> lock{mutex_};
-        return ready_.wait_for(lock, timeout, [this] { return result_.index() != 0; });
+        return ready_.wait_for(lock, timeout, [this] { return has_outcome(); });
     }
 
     template <typename Clock, typename Duration>
     [[nodiscard]] bool wait_until(const std::chrono::time_point<Clock, Duration> &deadline) const {
         std::unique_lock<std::mutex> lock{mutex_};
-        return ready_.wait_until(lock, deadline, [this] { return result_.index() != 0; });
+        return ready_.wait_until(lock, deadline, [this] { return has_outcome(); });
     }
 
     /// Blocks for the result, then delivers it: rethrows a stored exception, throws
     /// BrokenTaskPromise for an abandoned state, or moves the value out.
     T get() {
         std::unique_lock<std::mutex> lock{mutex_};
-        ready_.wait(lock, [this] { return result_.index() != 0; });
+        ready_.wait(lock, [this] { return has_outcome(); });
         if (result_.index() == 2) {
             std::rethrow_exception(std::get<2>(result_));
         }
-        if (result_.index() == 3) {
+        if (abandoned_) {
             throw BrokenTaskPromise{};
         }
         if constexpr (std::is_void_v<T>) {
@@ -122,15 +122,20 @@ template <typename T> class SharedTaskState {
     }
 
   private:
+    [[nodiscard]] bool has_outcome() const { // requires mutex_ held
+        return result_.index() != 0 || abandoned_;
+    }
+
     void ensure_unset() const { // requires mutex_ held
-        if (result_.index() != 0) {
+        if (has_outcome()) {
             throw std::logic_error("TaskPromise: result already set");
         }
     }
 
     mutable std::mutex mutex_;
     mutable std::condition_variable ready_;
-    std::variant<std::monostate, FutureValue<T>, std::exception_ptr, AbandonedTag> result_;
+    std::variant<std::monostate, FutureValue<T>, std::exception_ptr> result_;
+    bool abandoned_ = false;
 };
 
 } // namespace detail

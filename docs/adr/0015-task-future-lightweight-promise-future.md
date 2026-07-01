@@ -33,9 +33,13 @@ value out and invalidates the future. `T = void` is supported through an interna
 value type, not a separate specialization. The error contract follows the house rules:
 **misuse throws `std::logic_error`** (double set, second `get_future`, operations on an
 invalid future), and **an abandoned promise** (destroyed before satisfying its future) is
-materialized as a dedicated `BrokenTaskPromise` exception — stored via the same exception
-channel as `set_exception` and rethrown by `get()`, so consumers have exactly one failure
-surface. Dropped relative to `std`: `std::async` coupling, `shared_future` semantics,
+recorded in the shared state as a plain flag and surfaces from `get()` as a dedicated
+`BrokenTaskPromise` exception, so consumers have exactly one failure surface. The flag —
+rather than an eagerly stored `exception_ptr` or an extra variant alternative — keeps the
+promise's teardown path provably nothrow: the exception object is constructed in the
+getter's thread, and no `variant::emplace` (whose libstdc++ return path can theoretically
+throw `bad_variant_access`, tripping `bugprone-exception-escape` inside `noexcept`
+functions) runs during abandonment. Dropped relative to `std`: `std::async` coupling, `shared_future` semantics,
 allocator support, and continuations (`then`).
 
 ## Alternatives Considered
@@ -83,5 +87,5 @@ allocator support, and continuations (`then`).
 
 - Spec §2 component #6, §5 public interface & error model.
 - ADR-0013 (monitor engine), ADR-0014 (non-throwing-destructor-path reasoning — the
-  promise destructor *stores* the broken-promise exception rather than throwing).
+  promise destructor flips a flag rather than allocating or throwing).
 - `std::future`/`std::promise` ([futures] in the C++ standard) — the dropped machinery.
