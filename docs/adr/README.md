@@ -31,3 +31,4 @@ Status transitions: `Proposed` → `Accepted` → (`Superseded by ADR-XXXX` | `D
 | [0013](0013-semaphore-monitor-based-implementation.md) | `Semaphore` monitor-based implementation over mutex + condition variable | Accepted |
 | [0014](0014-reader-writer-lock-writer-preference-policy.md) | `ReaderWriterLock` writer-preference policy over a monitor | Accepted |
 | [0015](0015-task-future-lightweight-promise-future.md) | `TaskFuture<T>` lightweight promise/future design | Accepted |
+| [0016](0016-lock-free-queue-bounded-vyukov-mpmc.md) | `LockFreeQueue<T>` bounded Vyukov MPMC design | Accepted |

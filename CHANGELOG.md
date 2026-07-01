@@ -116,6 +116,15 @@ PR. A release PR moves the `[Unreleased]` entries into a new per-version file un
   `BrokenTaskPromise` (promise died unsatisfied — the library's first custom exception type)
   arrives out of `get()`. `T = void` supported. Misuse throws `std::logic_error`. Added to the
   umbrella header.
+- `it/d4np/util/lock_free_queue.hpp` (roadmap 6.4, component #7, ADR-0016): `LockFreeQueue<T>`,
+  a bounded MPMC queue — Vyukov's per-slot-sequence design. Ticket counters claimed with
+  relaxed CAS; each slot's acquire/release sequence number publishes payloads and vacancies
+  (the memory-ordering table in the ADR is normative). Non-blocking value-or-error API in the
+  `CircularBuffer` vocabulary: `try_push` returns `false` when full (backpressure), `try_pop`
+  returns `std::optional<T>`. Capacity fixed at construction, rounded up to a power of two;
+  per-producer FIFO; undelivered elements destroyed with the queue; requires
+  nothrow-move-constructible `T`. Progress caveat documented: lockless, not formally
+  lock-free. Added to the umbrella header.
 
 ### Changed
 
