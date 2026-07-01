@@ -45,6 +45,11 @@ PR. A release PR moves the `[Unreleased]` entries into a new per-version file un
   initializer-list construction; `at()` throws `std::out_of_range`, `operator[]` is unchecked;
   `front`/`back`/`data`/`begin`/`end`/`fill`/`swap`. No growth API, so it never reallocates.
   Added to the umbrella header.
+- `it/d4np/util/stack_allocator.hpp` (roadmap 3.3, component #3, ADR-0007): `StackAllocator<Size>`,
+  a monotonic bump allocator over a fixed in-object buffer. `allocate(bytes, alignment)` (throws
+  `std::bad_alloc` on exhaustion) and typed `allocate_uninitialized<T>()`; wholesale reclamation
+  via `reset()` and scoped reclamation via `mark()`/`rewind()`; `capacity`/`used`/`remaining`.
+  Non-copyable and non-movable. Added to the umbrella header.
 
 ### Changed
 

@@ -22,3 +22,4 @@ Status transitions: `Proposed` → `Accepted` → (`Superseded by ADR-XXXX` | `D
 | [0004](0004-adopt-hybrid-header-only-plus-static-build-model.md) | Adopt a hybrid header-only + optional STATIC build model | Accepted |
 | [0005](0005-unique-ref-non-null-ownership-semantics.md) | `UniqueRef<T>` non-null unique-ownership semantics | Accepted |
 | [0006](0006-heap-array-fixed-size-over-vector.md) | `HeapArray<T>` as a fixed-size restriction over `std::vector` | Accepted |
+| [0007](0007-stack-allocator-bump-arena-semantics.md) | `StackAllocator<Size>` bump-arena semantics | Accepted |
