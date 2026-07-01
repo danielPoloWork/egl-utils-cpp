@@ -36,6 +36,10 @@ PR. A release PR moves the `[Unreleased]` entries into a new per-version file un
   `EGL_UTIL_BUILD_STATIC`, default OFF) compiles the translation units that need separate
   compilation. Seeded with `it::d4np::util::library_version()` — the out-of-line counterpart
   to `version_string`. Completes Milestone 1.
+- `it/d4np/util/unique_ref.hpp` (roadmap 3.1, component #2, ADR-0005): `UniqueRef<T>`, a
+  non-null unique-ownership smart pointer with no constructible null state (deleted default /
+  `nullptr` construction, no `operator bool`), a `make_unique_ref<T>()` factory, a derived→base
+  converting move, and a `to_unique_ptr()` escape hatch. Added to the umbrella header.
 
 ### Changed
 

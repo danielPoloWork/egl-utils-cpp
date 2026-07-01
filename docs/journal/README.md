@@ -17,6 +17,10 @@ At the close of a state-changing session, the agent:
 
 _(newest first)_
 
+#### July
+
+- [2026-07-01 — UniqueRef<T> (roadmap 3.1)](2026/07/2026-07-01-unique-ref.md)
+
 #### June
 
 - [2026-06-30 — Hybrid CMake model (roadmap 1.8)](2026/06/2026-06-30-hybrid-cmake-model.md)
