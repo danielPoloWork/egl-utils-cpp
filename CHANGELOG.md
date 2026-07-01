@@ -71,6 +71,11 @@ PR. A release PR moves the `[Unreleased]` entries into a new per-version file un
   reallocation. `try_push` (rejects when full) and `push_overwrite` (drops the oldest);
   `pop()` → `std::optional<T>`; `front`/`back`/`size`/`capacity`/`empty`/`full`/`clear`.
   Added to the umbrella header. Completes Milestone 4.
+- `it/d4np/util/string_splitter.hpp` (roadmap 5.1, component #11): `StringSplitter`, a
+  zero-allocation, `constexpr` splitter. It is a lazy range whose iterator yields each field
+  between occurrences of a `std::string_view` delimiter as a `std::string_view` borrowing the
+  original text (no copies, no heap). Empty fields are preserved (`n` delimiters → `n + 1`
+  tokens). First of the Milestone-5 zero-copy string utilities. Added to the umbrella header.
 
 ### Changed
 
