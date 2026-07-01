@@ -98,6 +98,15 @@ PR. A release PR moves the `[Unreleased]` entries into a new per-version file un
   standard API, plus an advisory `available()` snapshot. Misuse throws (`std::invalid_argument`,
   `std::overflow_error`) instead of being undefined. First Milestone-6 concurrency component.
   Added to the umbrella header.
+- `it/d4np/util/reader_writer_lock.hpp` (roadmap 6.2, component #8, ADR-0014):
+  `ReaderWriterLock`, a **writer-preferring** reader/writer lock for read-mostly workloads —
+  unlike `std::shared_mutex`, whose scheduling is unspecified and platform-divergent (glibc
+  defaults to reader preference, starving writers), the fairness policy is explicit and
+  identical on every platform: once a writer waits, new readers are held back until it runs.
+  Satisfies the SharedTimedMutex named requirements (`lock[_shared]`, `try_lock[_shared]`,
+  `try_lock[_shared]_for/until`, `unlock[_shared]`), so `std::scoped_lock` /
+  `std::unique_lock` / `std::shared_lock` compose with it directly. Monitor Object + Guarded
+  Suspension (second exercise of both). Added to the umbrella header.
 
 ### Changed
 

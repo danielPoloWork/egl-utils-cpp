@@ -24,8 +24,8 @@ in `src/main/...`, ADR `Accepted`) · `Considered` · `Rejected` · `Superseded`
 | # | Pattern | Status | Problem it addresses | Code location | ADR / PR |
 |---|---------|--------|----------------------|---------------|----------|
 | 1 | Object Pool | Implemented | Reuse a fixed set of pre-allocated objects so hot paths avoid per-use allocation and construction cost | [`object_pool.hpp`](../../src/main/cpp/it/d4np/util/object_pool.hpp) | [ADR-0008](../adr/0008-adopt-object-pool-pattern.md) |
-| 2 | Monitor Object | Implemented | Serialise every operation on the semaphore count under one internal lock, making the whole public surface thread-safe by construction | [`semaphore.hpp`](../../src/main/cpp/it/d4np/util/semaphore.hpp) | [ADR-0013](../adr/0013-semaphore-monitor-based-implementation.md) |
-| 3 | Guarded Suspension | Implemented | Block `acquire` until the guard `count > 0` holds, via a condition-variable predicate wait that absorbs spurious wakeups | [`semaphore.hpp`](../../src/main/cpp/it/d4np/util/semaphore.hpp) | [ADR-0013](../adr/0013-semaphore-monitor-based-implementation.md) |
+| 2 | Monitor Object | Implemented | Serialise every operation on the shared state under one internal lock, making the whole public surface thread-safe by construction | [`semaphore.hpp`](../../src/main/cpp/it/d4np/util/semaphore.hpp), [`reader_writer_lock.hpp`](../../src/main/cpp/it/d4np/util/reader_writer_lock.hpp) | [ADR-0013](../adr/0013-semaphore-monitor-based-implementation.md), [ADR-0014](../adr/0014-reader-writer-lock-writer-preference-policy.md) |
+| 3 | Guarded Suspension | Implemented | Block until the guard holds (`count > 0`; no writer active/waiting), via condition-variable predicate waits that absorb spurious wakeups | [`semaphore.hpp`](../../src/main/cpp/it/d4np/util/semaphore.hpp), [`reader_writer_lock.hpp`](../../src/main/cpp/it/d4np/util/reader_writer_lock.hpp) | [ADR-0013](../adr/0013-semaphore-monitor-based-implementation.md), [ADR-0014](../adr/0014-reader-writer-lock-writer-preference-policy.md) |
 
 ## Rejected
 
