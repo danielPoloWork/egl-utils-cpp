@@ -107,6 +107,15 @@ PR. A release PR moves the `[Unreleased]` entries into a new per-version file un
   `try_lock[_shared]_for/until`, `unlock[_shared]`), so `std::scoped_lock` /
   `std::unique_lock` / `std::shared_lock` compose with it directly. Monitor Object + Guarded
   Suspension (second exercise of both). Added to the umbrella header.
+- `it/d4np/util/task_future.hpp` (roadmap 6.3, component #6, ADR-0015): `TaskFuture<T>` /
+  `TaskPromise<T>`, a lightweight, move-only, single-shot promise/future pair for cooperative
+  tasks — one shared-state allocation, no `std::async` coupling, no `shared_future`, no
+  allocators. `get()` delivers exactly once (moving the value out, so move-only payloads flow
+  through) and invalidates the future; `ready()` probes without blocking; `wait_for`/`wait_until`
+  return plain readiness. One failure surface: the task's exception (via `set_exception`) or
+  `BrokenTaskPromise` (promise died unsatisfied — the library's first custom exception type)
+  arrives out of `get()`. `T = void` supported. Misuse throws `std::logic_error`. Added to the
+  umbrella header.
 
 ### Changed
 
