@@ -66,6 +66,11 @@ PR. A release PR moves the `[Unreleased]` entries into a new per-version file un
   and `erase`. The whole interface is `constexpr` — construction sorts via `std::sort` at
   runtime and via sorted insertion during constant evaluation — so a `FlatMap` can be built and
   queried behind a `static_assert`. Added to the umbrella header.
+- `it/d4np/util/circular_buffer.hpp` (roadmap 4.3, component #13, ADR-0011): `CircularBuffer<T>`,
+  a fixed-capacity FIFO ring buffer over a pre-sized `std::vector` with O(1) push/pop and no
+  reallocation. `try_push` (rejects when full) and `push_overwrite` (drops the oldest);
+  `pop()` → `std::optional<T>`; `front`/`back`/`size`/`capacity`/`empty`/`full`/`clear`.
+  Added to the umbrella header. Completes Milestone 4.
 
 ### Changed
 

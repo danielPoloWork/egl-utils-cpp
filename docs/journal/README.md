@@ -19,6 +19,7 @@ _(newest first)_
 
 #### July
 
+- [2026-07-01 — CircularBuffer<T> (roadmap 4.3) — Milestone 4 complete](2026/07/2026-07-01-circular-buffer.md)
 - [2026-07-01 — FlatMap<Key,Value> (roadmap 4.2)](2026/07/2026-07-01-flat-map.md)
 - [2026-07-01 — FlatSet<T> (roadmap 4.1)](2026/07/2026-07-01-flat-set.md)
 - [2026-07-01 — ObjectPool<T> (roadmap 3.4) — Milestone 3 complete](2026/07/2026-07-01-object-pool.md)
