@@ -64,7 +64,7 @@ setup.
 |---|---|---|
 | 1 | Project bootstrap & CI | ✅ done |
 | 2 | Foundations — Type Traits & Hashing | ✅ done |
-| 3 | Memory & Resource Management | ⏳ in progress |
+| 3 | Memory & Resource Management | ✅ done |
 | 4 | Contiguous Containers | ⏳ planned |
 | 5 | Zero-Copy Strings | ⏳ planned |
 | 6 | Concurrency & Multithreading | ⏳ planned |

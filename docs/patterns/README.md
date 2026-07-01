@@ -21,12 +21,9 @@ in `src/main/...`, ADR `Accepted`) · `Considered` · `Rejected` · `Superseded`
 
 ## Adopted / Planned
 
-_No patterns adopted yet. Each adoption lands with its ADR and a code location in the same
-PR._
-
 | # | Pattern | Status | Problem it addresses | Code location | ADR / PR |
 |---|---------|--------|----------------------|---------------|----------|
-| — | —       | —      | —                    | —             | —        |
+| 1 | Object Pool | Implemented | Reuse a fixed set of pre-allocated objects so hot paths avoid per-use allocation and construction cost | [`object_pool.hpp`](../../src/main/cpp/it/d4np/util/object_pool.hpp) | [ADR-0008](../adr/0008-adopt-object-pool-pattern.md) |
 
 ## Rejected
 
