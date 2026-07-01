@@ -6,7 +6,7 @@ its section with a fresh `<milestone>.<task>` number; never renumber.
 
 - **Versioning start:** pre-1.0 milestone-driven.
 - **Session journal:** see [`docs/journal/`](docs/journal/). Latest checkpoint:
-  [2026-07-01 — StringFormatter](docs/journal/2026/07/2026-07-01-string-formatter.md).
+  [2026-07-01 — Semaphore](docs/journal/2026/07/2026-07-01-semaphore.md).
 
 ---
 
@@ -76,7 +76,7 @@ Allocation-light string construction, splitting, and type-safe formatting.
 
 Thread-safe primitives, all verified under ThreadSanitizer.
 
-- [ ] 6.1 Implement Semaphore — portable counting semaphore (component #9).
+- [x] 6.1 Implement Semaphore — portable counting semaphore (component #9).
 - [ ] 6.2 Implement ReaderWriterLock — read-optimized shared mutex (component #8).
 - [ ] 6.3 Implement TaskFuture<T> — lightweight future/promise (component #6).
 - [ ] 6.4 Implement LockFreeQueue<T> — MPMC lock-free queue (component #7).
@@ -139,8 +139,8 @@ progress · ✅ done · ❎ N/A.
 | Spec § | Requirement | Roadmap items | Status |
 |--------|-------------|---------------|--------|
 | §1 | Objective & business context | 1.1 | ⏳ |
-| §2 | Functional requirements | 1.1, 1.2, 3.1, 3.2, 3.3, 3.4, 4.1, 4.2, 4.3, 5.1, 5.2, 5.3 | ⏳ |
+| §2 | Functional requirements | 1.1, 1.2, 3.1, 3.2, 3.3, 3.4, 4.1, 4.2, 4.3, 5.1, 5.2, 5.3, 6.1 | ⏳ |
 | §3 | Non-functional requirements | 1.3, 1.4 | ⏳ |
 | §4 | Logical architecture | 1.1, 1.8 | ⏳ |
-| §5 | Public interface | 1.2, 3.1, 3.2, 3.3, 3.4, 4.1, 4.2, 4.3, 5.1, 5.2, 5.3 | ⏳ |
+| §5 | Public interface | 1.2, 3.1, 3.2, 3.3, 3.4, 4.1, 4.2, 4.3, 5.1, 5.2, 5.3, 6.1 | ⏳ |
 | §6 | Verification & test strategy | 1.2, 1.4 | ⏳ |

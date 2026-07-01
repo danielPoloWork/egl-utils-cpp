@@ -13,6 +13,7 @@
 #include <it/d4np/util/hash.hpp>
 #include <it/d4np/util/heap_array.hpp>
 #include <it/d4np/util/object_pool.hpp>
+#include <it/d4np/util/semaphore.hpp>
 #include <it/d4np/util/stack_allocator.hpp>
 #include <it/d4np/util/string_builder.hpp>
 #include <it/d4np/util/string_formatter.hpp>

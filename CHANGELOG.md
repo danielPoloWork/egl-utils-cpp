@@ -90,6 +90,14 @@ PR. A release PR moves the `[Unreleased]` entries into a new per-version file un
   rendered shortest-round-trip via `std::to_chars` where available). Positional `{}`
   placeholders with `{{`/`}}` escapes; `format` returns a `std::string`, `format_to` appends
   into a caller-supplied `StringBuilder`. Added to the umbrella header. Completes Milestone 5.
+- `it/d4np/util/semaphore.hpp` (roadmap 6.1, component #9, ADR-0013): `Semaphore`, a portable
+  counting semaphore implemented as a **Monitor Object** with **Guarded Suspension** (both
+  catalogued) over `std::mutex` + `std::condition_variable` — chosen over
+  `std::counting_semaphore`, whose floor implementations are defective (GCC PR 100806/104928).
+  `acquire`/`try_acquire`/`try_acquire_for`/`try_acquire_until`/`release(n)`/`max()` mirror the
+  standard API, plus an advisory `available()` snapshot. Misuse throws (`std::invalid_argument`,
+  `std::overflow_error`) instead of being undefined. First Milestone-6 concurrency component.
+  Added to the umbrella header.
 
 ### Changed
 
