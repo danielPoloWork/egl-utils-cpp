@@ -66,7 +66,7 @@ setup.
 | 2 | Foundations — Type Traits & Hashing | ✅ done |
 | 3 | Memory & Resource Management | ✅ done |
 | 4 | Contiguous Containers | ✅ done |
-| 5 | Zero-Copy Strings | ⏳ planned |
+| 5 | Zero-Copy Strings | ⏳ in progress |
 | 6 | Concurrency & Multithreading | ⏳ planned |
 | 7 | Diagnostics & Instrumentation | ⏳ planned |
 | 8 | Parsing & Input | ⏳ planned |
