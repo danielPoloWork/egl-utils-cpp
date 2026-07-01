@@ -9,6 +9,7 @@
 
 #include <it/d4np/util/hash.hpp>
 #include <it/d4np/util/type_traits.hpp>
+#include <it/d4np/util/unique_ref.hpp>
 #include <it/d4np/util/version.hpp>
 
 #endif // IT_D4NP_UTIL_UTIL_HPP
