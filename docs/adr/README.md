@@ -26,3 +26,4 @@ Status transitions: `Proposed` → `Accepted` → (`Superseded by ADR-XXXX` | `D
 | [0008](0008-adopt-object-pool-pattern.md) | Adopt the Object Pool pattern for `ObjectPool<T>` | Accepted |
 | [0009](0009-adopt-flat-sorted-contiguous-containers.md) | Adopt flat (sorted-contiguous) associative containers | Accepted |
 | [0010](0010-flatmap-constexpr-construction.md) | `FlatMap<Key, Value>` constexpr support and construction strategy | Accepted |
+| [0011](0011-circular-buffer-ring-semantics.md) | `CircularBuffer<T>` ring-buffer semantics | Accepted |
