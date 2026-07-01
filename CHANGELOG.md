@@ -55,6 +55,11 @@ PR. A release PR moves the `[Unreleased]` entries into a new per-version file un
   pattern (first catalogued pattern). O(1) mutex-guarded `try_acquire()` → `std::optional<Handle>`
   and RAII release; value-initialized or factory-constructed slots; `capacity`/`available`/
   `in_use`. Verified under ThreadSanitizer. Added to the umbrella header. Completes Milestone 3.
+- `it/d4np/util/flat_set.hpp` (roadmap 4.1, component #15, ADR-0009): `FlatSet<T, Compare>`, an
+  ordered set stored as a single sorted, contiguous `std::vector` with O(log n) binary-search
+  lookup (`find`/`contains`/`count`/`lower_bound`/`upper_bound`) and unique insertion.
+  Initializer-list / range / comparator constructors; `erase`, `reserve`, const iterators.
+  First of the Milestone-4 flat containers. Added to the umbrella header.
 
 ### Changed
 

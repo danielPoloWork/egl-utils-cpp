@@ -6,7 +6,7 @@ its section with a fresh `<milestone>.<task>` number; never renumber.
 
 - **Versioning start:** pre-1.0 milestone-driven.
 - **Session journal:** see [`docs/journal/`](docs/journal/). Latest checkpoint:
-  [2026-07-01 — ObjectPool<T>](docs/journal/2026/07/2026-07-01-object-pool.md).
+  [2026-07-01 — FlatSet<T>](docs/journal/2026/07/2026-07-01-flat-set.md).
 
 ---
 
@@ -54,7 +54,7 @@ RAII-driven, leak-free allocation primitives, validated under ASan/Valgrind.
 
 Cache-friendly fixed and contiguous containers.
 
-- [ ] 4.1 Implement FlatSet<T> — sorted-vector set (component #15).
+- [x] 4.1 Implement FlatSet<T> — sorted-vector set (component #15).
 - [ ] 4.2 Implement FlatMap<Key,Value> — sorted contiguous-array map with constexpr support (component #14).
 - [ ] 4.3 Implement CircularBuffer<T> — fixed circular buffer for byte streaming (component #13).
 
@@ -139,8 +139,8 @@ progress · ✅ done · ❎ N/A.
 | Spec § | Requirement | Roadmap items | Status |
 |--------|-------------|---------------|--------|
 | §1 | Objective & business context | 1.1 | ⏳ |
-| §2 | Functional requirements | 1.1, 1.2, 3.1, 3.2, 3.3, 3.4 | ⏳ |
+| §2 | Functional requirements | 1.1, 1.2, 3.1, 3.2, 3.3, 3.4, 4.1 | ⏳ |
 | §3 | Non-functional requirements | 1.3, 1.4 | ⏳ |
 | §4 | Logical architecture | 1.1, 1.8 | ⏳ |
-| §5 | Public interface | 1.2, 3.1, 3.2, 3.3, 3.4 | ⏳ |
+| §5 | Public interface | 1.2, 3.1, 3.2, 3.3, 3.4, 4.1 | ⏳ |
 | §6 | Verification & test strategy | 1.2, 1.4 | ⏳ |

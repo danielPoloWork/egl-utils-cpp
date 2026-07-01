@@ -24,3 +24,4 @@ Status transitions: `Proposed` → `Accepted` → (`Superseded by ADR-XXXX` | `D
 | [0006](0006-heap-array-fixed-size-over-vector.md) | `HeapArray<T>` as a fixed-size restriction over `std::vector` | Accepted |
 | [0007](0007-stack-allocator-bump-arena-semantics.md) | `StackAllocator<Size>` bump-arena semantics | Accepted |
 | [0008](0008-adopt-object-pool-pattern.md) | Adopt the Object Pool pattern for `ObjectPool<T>` | Accepted |
+| [0009](0009-adopt-flat-sorted-contiguous-containers.md) | Adopt flat (sorted-contiguous) associative containers | Accepted |
