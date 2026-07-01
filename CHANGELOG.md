@@ -40,6 +40,11 @@ PR. A release PR moves the `[Unreleased]` entries into a new per-version file un
   non-null unique-ownership smart pointer with no constructible null state (deleted default /
   `nullptr` construction, no `operator bool`), a `make_unique_ref<T>()` factory, a derived→base
   converting move, and a `to_unique_ptr()` escape hatch. Added to the umbrella header.
+- `it/d4np/util/heap_array.hpp` (roadmap 3.2, component #4, ADR-0006): `HeapArray<T>`, a
+  fixed-size, bounds-checked heap array with deep-copy value semantics. Sized/fill/
+  initializer-list construction; `at()` throws `std::out_of_range`, `operator[]` is unchecked;
+  `front`/`back`/`data`/`begin`/`end`/`fill`/`swap`. No growth API, so it never reallocates.
+  Added to the umbrella header.
 
 ### Changed
 

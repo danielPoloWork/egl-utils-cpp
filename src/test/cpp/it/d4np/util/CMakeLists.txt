@@ -9,7 +9,8 @@ FetchContent_Declare(
     GIT_SHALLOW TRUE)
 FetchContent_MakeAvailable(doctest)
 
-set(EGL_UTIL_TEST_SOURCES smoke_test.cpp type_traits_test.cpp hash_test.cpp unique_ref_test.cpp)
+set(EGL_UTIL_TEST_SOURCES smoke_test.cpp type_traits_test.cpp hash_test.cpp unique_ref_test.cpp
+                          heap_array_test.cpp)
 
 # When the compiled tier is enabled, link against it (a strict superset of the interface
 # tier, ADR-0004) and exercise its one ODR-bound symbol, library_version().

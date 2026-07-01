@@ -19,6 +19,7 @@ _(newest first)_
 
 #### July
 
+- [2026-07-01 — HeapArray<T> (roadmap 3.2)](2026/07/2026-07-01-heap-array.md)
 - [2026-07-01 — UniqueRef<T> (roadmap 3.1)](2026/07/2026-07-01-unique-ref.md)
 
 #### June
