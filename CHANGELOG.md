@@ -143,6 +143,16 @@ PR. A release PR moves the `[Unreleased]` entries into a new per-version file un
   conveniences; `reset`/`restart`/`start_new`. Sequencing misuse throws `std::logic_error` —
   a measurement tool must not turn state bugs into quietly wrong numbers. Plain value type.
   First Milestone-7 diagnostics component. Added to the umbrella header.
+- `it/d4np/util/stack_trace.hpp` + `stack_trace.cpp` (roadmap 7.2, component #21, ADR-0019):
+  `StackTrace`, native-API stack capture — the first real occupant of the compiled STATIC
+  tier (ADR-0004): declarations in the header, every definition in `stack_trace.cpp`, so the
+  OS headers never reach consumers (requires `egl-util::egl-util-static`, like
+  `library_version()`). Cheap capture (`CaptureStackBackTrace` / `backtrace(3)`, addresses
+  only, `skip`/`max_frames`) split from on-demand best-effort symbolization (DbgHelp under an
+  internal mutex on Windows; `dladdr` + `__cxa_demangle` on POSIX; hex-address fallback).
+  `symbolize()` → frames, `to_string()` → one `#index 0xaddress description` line per frame.
+  Not async-signal-safe (documented). The static tier now links `dbghelp` (Windows) /
+  `${CMAKE_DL_LIBS}` (POSIX) privately. Added to the umbrella header.
 
 ### Changed
 

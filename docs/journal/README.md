@@ -19,6 +19,7 @@ _(newest first)_
 
 #### July
 
+- [2026-07-02 — StackTrace (roadmap 7.2)](2026/07/2026-07-02-stack-trace.md)
 - [2026-07-02 — Stopwatch (roadmap 7.1)](2026/07/2026-07-02-stopwatch.md)
 - [2026-07-02 — ThreadPool (roadmap 6.5) — Milestone 6 complete](2026/07/2026-07-02-thread-pool.md)
 - [2026-07-02 — LockFreeQueue (roadmap 6.4)](2026/07/2026-07-02-lock-free-queue.md)

@@ -34,3 +34,4 @@ Status transitions: `Proposed` → `Accepted` → (`Superseded by ADR-XXXX` | `D
 | [0016](0016-lock-free-queue-bounded-vyukov-mpmc.md) | `LockFreeQueue<T>` bounded Vyukov MPMC design | Accepted |
 | [0017](0017-thread-pool-priority-work-pool.md) | `ThreadPool` priority work pool design | Accepted |
 | [0018](0018-stopwatch-steady-clock-accumulation.md) | `Stopwatch` clock choice and accumulation semantics | Accepted |
+| [0019](0019-stack-trace-compiled-tier-capture.md) | `StackTrace` compiled-tier capture with on-demand symbolization | Accepted |
