@@ -125,6 +125,16 @@ PR. A release PR moves the `[Unreleased]` entries into a new per-version file un
   per-producer FIFO; undelivered elements destroyed with the queue; requires
   nothrow-move-constructible `T`. Progress caveat documented: lockless, not formally
   lock-free. Added to the umbrella header.
+- `it/d4np/util/thread_pool.hpp` (roadmap 6.5, component #5, ADR-0017): `ThreadPool`, a
+  fixed-size priority work pool implementing the **Thread Pool** pattern. Stable priority
+  queue (monitor-guarded binary heap via `std::push_heap`/`pop_heap`): higher priority runs
+  first, equal priorities run in submission order. `submit([priority,] callable)` returns a
+  `TaskFuture` delivering the task's result or exception — a throwing task never kills a
+  worker. Tasks are type-erased move-only callables (`std::function` cannot hold the
+  move-only promise; `std::move_only_function` is C++23). Shutdown **drains**: queued tasks
+  finish before the workers join (destructor included); `submit` after shutdown throws
+  `std::logic_error`. Also catalogued the **Future / Promise** pattern for `task_future.hpp`
+  (omitted in the 6.3 PR). Added to the umbrella header. Completes Milestone 6.
 
 ### Changed
 

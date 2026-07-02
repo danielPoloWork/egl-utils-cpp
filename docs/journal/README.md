@@ -19,6 +19,7 @@ _(newest first)_
 
 #### July
 
+- [2026-07-02 — ThreadPool (roadmap 6.5) — Milestone 6 complete](2026/07/2026-07-02-thread-pool.md)
 - [2026-07-02 — LockFreeQueue (roadmap 6.4)](2026/07/2026-07-02-lock-free-queue.md)
 - [2026-07-02 — TaskFuture (roadmap 6.3)](2026/07/2026-07-02-task-future.md)
 - [2026-07-01 — ReaderWriterLock (roadmap 6.2)](2026/07/2026-07-01-reader-writer-lock.md)
