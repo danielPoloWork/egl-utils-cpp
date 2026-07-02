@@ -22,8 +22,16 @@ target_compile_features(egl-util INTERFACE cxx_std_20)
 # Gated behind EGL_UTIL_BUILD_STATIC so a header-only consumer pays for nothing. The archive
 # is named libegl-util.a regardless of the CMake target name.
 if(EGL_UTIL_BUILD_STATIC)
-    add_library(egl-util-static STATIC version.cpp)
+    add_library(egl-util-static STATIC version.cpp stack_trace.cpp)
     add_library(egl-util::egl-util-static ALIAS egl-util-static)
     target_link_libraries(egl-util-static PUBLIC egl-util)
     set_target_properties(egl-util-static PROPERTIES OUTPUT_NAME egl-util)
+
+    # StackTrace (ADR-0019) platform symbolization backends. PRIVATE: header-only consumers
+    # link nothing; static-tier consumers get them transitively through the archive.
+    if(WIN32)
+        target_link_libraries(egl-util-static PRIVATE dbghelp)
+    else()
+        target_link_libraries(egl-util-static PRIVATE ${CMAKE_DL_LIBS})
+    endif()
 endif()
