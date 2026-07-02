@@ -153,6 +153,22 @@ PR. A release PR moves the `[Unreleased]` entries into a new per-version file un
   `symbolize()` → frames, `to_string()` → one `#index 0xaddress description` line per frame.
   Not async-signal-safe (documented). The static tier now links `dbghelp` (Windows) /
   `${CMAKE_DL_LIBS}` (POSIX) privately. Added to the umbrella header.
+- `it/d4np/util/logger.hpp` + `logger.cpp` (roadmap 7.3, component #20, ADR-0020): `Logger`,
+  an asynchronous multi-sink logger in the compiled STATIC tier. Call sites format eagerly
+  through the ADR-0012 machinery (compile-time-validated format strings; records below the
+  runtime filter level cost one relaxed load); a bounded monitor-guarded queue feeds one
+  dedicated pump thread that renders each record once (`[YYYY-MM-DD HH:MM:SS.mmm] [level]
+  [thread] message`, UTC) and fans out to every sink in strict FIFO order. Sinks are a
+  **Strategy** hierarchy — `ConsoleSink`, `FileSink`, `UdpSink` (numeric address literals
+  only; never DNS), or consumer-defined — invoked from the pump only (no sink locking); a
+  throwing sink is absorbed and counted (`sink_failures()`), never killing the pump. Full
+  queues follow an explicit `OverflowPolicy` (`block`, lossless default, or `drop`, counted
+  via `dropped()`); `flush()` rides the queue as a ticketed marker; `shutdown()` (and the
+  destructor) drains everything accepted, flushes the sinks, and joins. Reentrant
+  sink-into-logger deadlocks are diagnosed with `std::logic_error`. Also catalogued
+  **Producer-Consumer** (adopted) and **Active Object** (rejected). The static tier now
+  links `ws2_32` (Windows) and `Threads::Threads`. Added to the umbrella header. Completes
+  Milestone 7.
 
 ### Changed
 
