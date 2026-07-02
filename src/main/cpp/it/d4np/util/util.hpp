@@ -21,6 +21,7 @@
 #include <it/d4np/util/string_formatter.hpp>
 #include <it/d4np/util/string_splitter.hpp>
 #include <it/d4np/util/task_future.hpp>
+#include <it/d4np/util/thread_pool.hpp>
 #include <it/d4np/util/type_traits.hpp>
 #include <it/d4np/util/unique_ref.hpp>
 #include <it/d4np/util/version.hpp>
