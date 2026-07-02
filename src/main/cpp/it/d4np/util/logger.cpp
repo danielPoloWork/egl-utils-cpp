@@ -50,7 +50,7 @@
 #include <netdb.h>
 #include <sys/socket.h>
 #include <unistd.h>
-#if defined(__linux__)
+#ifdef __linux__
 #include <sys/syscall.h>
 #elif defined(__APPLE__)
 #include <pthread.h>
@@ -160,8 +160,11 @@ bool send_datagram(std::intptr_t handle, std::string_view payload, const unsigne
 }
 
 std::uint64_t compute_thread_id() noexcept {
-#if defined(__linux__)
-    // The raw syscall avoids the glibc >= 2.30 floor of the gettid(2) wrapper.
+#ifdef __linux__
+    // The raw syscall avoids the glibc >= 2.30 floor of the gettid(2) wrapper. syscall(2)
+    // is a C vararg function by contract — the banned-vararg rule meets its legitimate
+    // exception at the OS boundary.
+    // NOLINTNEXTLINE(cppcoreguidelines-pro-type-vararg)
     return static_cast<std::uint64_t>(::syscall(SYS_gettid));
 #elif defined(__APPLE__)
     std::uint64_t tid = 0;

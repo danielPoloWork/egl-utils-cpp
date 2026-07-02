@@ -191,6 +191,10 @@ class UdpSink final : public Sink {
         WsaSession &operator=(const WsaSession &) = delete;
         WsaSession(WsaSession &&) = delete;
         WsaSession &operator=(WsaSession &&) = delete;
+        // Out-of-line on purpose: the Windows build does real work (WSACleanup) in this
+        // destructor, and the class must keep one ABI across platforms — so it cannot be
+        // trivially destructible on POSIX either.
+        // NOLINTNEXTLINE(performance-trivially-destructible)
         ~WsaSession();
     };
 
