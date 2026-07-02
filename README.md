@@ -68,7 +68,7 @@ setup.
 | 4 | Contiguous Containers | ✅ done |
 | 5 | Zero-Copy Strings | ✅ done |
 | 6 | Concurrency & Multithreading | ✅ done |
-| 7 | Diagnostics & Instrumentation | ⏳ planned |
+| 7 | Diagnostics & Instrumentation | ⏳ in progress |
 | 8 | Parsing & Input | ⏳ planned |
 | 9 | I/O & Networking | ⏳ planned |
 | 10 | Hardening & 1.0 | ⏳ planned |

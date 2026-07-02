@@ -17,6 +17,7 @@
 #include <it/d4np/util/reader_writer_lock.hpp>
 #include <it/d4np/util/semaphore.hpp>
 #include <it/d4np/util/stack_allocator.hpp>
+#include <it/d4np/util/stopwatch.hpp>
 #include <it/d4np/util/string_builder.hpp>
 #include <it/d4np/util/string_formatter.hpp>
 #include <it/d4np/util/string_splitter.hpp>
