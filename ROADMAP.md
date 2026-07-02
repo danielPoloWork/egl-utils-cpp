@@ -6,7 +6,7 @@ its section with a fresh `<milestone>.<task>` number; never renumber.
 
 - **Versioning start:** pre-1.0 milestone-driven.
 - **Session journal:** see [`docs/journal/`](docs/journal/). Latest checkpoint:
-  [2026-07-02 — ThreadPool](docs/journal/2026/07/2026-07-02-thread-pool.md).
+  [2026-07-02 — Stopwatch](docs/journal/2026/07/2026-07-02-stopwatch.md).
 
 ---
 
@@ -89,7 +89,7 @@ Thread-safe primitives, all verified under ThreadSanitizer.
 
 Profiling, logging, and crash diagnostics.
 
-- [ ] 7.1 Implement Stopwatch — microsecond high-resolution profiler (component #19).
+- [x] 7.1 Implement Stopwatch — microsecond high-resolution profiler (component #19).
 - [ ] 7.2 Implement StackTrace — native-API stack capture (component #21).
 - [ ] 7.3 Implement Logger — asynchronous multi-sink logger: console, file, UDP (component #20).
 
@@ -139,8 +139,8 @@ progress · ✅ done · ❎ N/A.
 | Spec § | Requirement | Roadmap items | Status |
 |--------|-------------|---------------|--------|
 | §1 | Objective & business context | 1.1 | ⏳ |
-| §2 | Functional requirements | 1.1, 1.2, 3.1, 3.2, 3.3, 3.4, 4.1, 4.2, 4.3, 5.1, 5.2, 5.3, 6.1, 6.2, 6.3, 6.4, 6.5 | ⏳ |
+| §2 | Functional requirements | 1.1, 1.2, 3.1, 3.2, 3.3, 3.4, 4.1, 4.2, 4.3, 5.1, 5.2, 5.3, 6.1, 6.2, 6.3, 6.4, 6.5, 7.1 | ⏳ |
 | §3 | Non-functional requirements | 1.3, 1.4 | ⏳ |
 | §4 | Logical architecture | 1.1, 1.8 | ⏳ |
-| §5 | Public interface | 1.2, 3.1, 3.2, 3.3, 3.4, 4.1, 4.2, 4.3, 5.1, 5.2, 5.3, 6.1, 6.2, 6.3, 6.4, 6.5 | ⏳ |
+| §5 | Public interface | 1.2, 3.1, 3.2, 3.3, 3.4, 4.1, 4.2, 4.3, 5.1, 5.2, 5.3, 6.1, 6.2, 6.3, 6.4, 6.5, 7.1 | ⏳ |
 | §6 | Verification & test strategy | 1.2, 1.4 | ⏳ |

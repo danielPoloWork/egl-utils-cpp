@@ -135,6 +135,14 @@ PR. A release PR moves the `[Unreleased]` entries into a new per-version file un
   finish before the workers join (destructor included); `submit` after shutdown throws
   `std::logic_error`. Also catalogued the **Future / Promise** pattern for `task_future.hpp`
   (omitted in the 6.3 PR). Added to the umbrella header. Completes Milestone 6.
+- `it/d4np/util/stopwatch.hpp` (roadmap 7.1, component #19, ADR-0018): `Stopwatch`, a
+  microsecond-grade accumulating profiler over `std::chrono::steady_clock` (monotonic —
+  deliberately not `high_resolution_clock`, which may alias the NTP-adjustable
+  `system_clock`). `start`/`stop` cycles add up; `elapsed()` (`std::chrono::nanoseconds`,
+  including the open interval) plus `elapsed_microseconds()`/`elapsed_milliseconds()`
+  conveniences; `reset`/`restart`/`start_new`. Sequencing misuse throws `std::logic_error` —
+  a measurement tool must not turn state bugs into quietly wrong numbers. Plain value type.
+  First Milestone-7 diagnostics component. Added to the umbrella header.
 
 ### Changed
 
