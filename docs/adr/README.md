@@ -36,3 +36,4 @@ Status transitions: `Proposed` → `Accepted` → (`Superseded by ADR-XXXX` | `D
 | [0018](0018-stopwatch-steady-clock-accumulation.md) | `Stopwatch` clock choice and accumulation semantics | Accepted |
 | [0019](0019-stack-trace-compiled-tier-capture.md) | `StackTrace` compiled-tier capture with on-demand symbolization | Accepted |
 | [0020](0020-logger-async-pump-with-strategy-sinks.md) | `Logger` asynchronous single-pump design with Strategy sinks | Accepted |
+| [0021](0021-cli-parser-typed-binding-value-or-error.md) | `CliParser` typed variable-binding with a value-or-error boundary | Accepted |

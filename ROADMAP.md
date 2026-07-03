@@ -6,7 +6,7 @@ its section with a fresh `<milestone>.<task>` number; never renumber.
 
 - **Versioning start:** pre-1.0 milestone-driven.
 - **Session journal:** see [`docs/journal/`](docs/journal/). Latest checkpoint:
-  [2026-07-02 — Logger](docs/journal/2026/07/2026-07-02-logger.md).
+  [2026-07-03 — CliParser](docs/journal/2026/07/2026-07-03-cli-parser.md).
 
 ---
 
@@ -100,7 +100,7 @@ Profiling, logging, and crash diagnostics.
 
 Typed CLI parsing and non-allocating JSON.
 
-- [ ] 8.1 Implement CliParser — typed CLI parser with auto-generated help (component #22).
+- [x] 8.1 Implement CliParser — typed CLI parser with auto-generated help (component #22).
 - [ ] 8.2 Implement JsonParser — non-allocating JSON parser over string views (component #23).
 
 
@@ -139,8 +139,8 @@ progress · ✅ done · ❎ N/A.
 | Spec § | Requirement | Roadmap items | Status |
 |--------|-------------|---------------|--------|
 | §1 | Objective & business context | 1.1 | ⏳ |
-| §2 | Functional requirements | 1.1, 1.2, 3.1, 3.2, 3.3, 3.4, 4.1, 4.2, 4.3, 5.1, 5.2, 5.3, 6.1, 6.2, 6.3, 6.4, 6.5, 7.1, 7.2, 7.3 | ⏳ |
+| §2 | Functional requirements | 1.1, 1.2, 3.1, 3.2, 3.3, 3.4, 4.1, 4.2, 4.3, 5.1, 5.2, 5.3, 6.1, 6.2, 6.3, 6.4, 6.5, 7.1, 7.2, 7.3, 8.1 | ⏳ |
 | §3 | Non-functional requirements | 1.3, 1.4 | ⏳ |
 | §4 | Logical architecture | 1.1, 1.8 | ⏳ |
-| §5 | Public interface | 1.2, 3.1, 3.2, 3.3, 3.4, 4.1, 4.2, 4.3, 5.1, 5.2, 5.3, 6.1, 6.2, 6.3, 6.4, 6.5, 7.1, 7.2, 7.3 | ⏳ |
+| §5 | Public interface | 1.2, 3.1, 3.2, 3.3, 3.4, 4.1, 4.2, 4.3, 5.1, 5.2, 5.3, 6.1, 6.2, 6.3, 6.4, 6.5, 7.1, 7.2, 7.3, 8.1 | ⏳ |
 | §6 | Verification & test strategy | 1.2, 1.4 | ⏳ |
