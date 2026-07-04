@@ -138,19 +138,14 @@ TEST_CASE("read fills exactly what is asked, short only at EOF") {
     FileStream in = FileStream::open(file.str(), FileMode::read, /*buffer_size=*/4);
     REQUIRE(in.is_open());
 
+    // Compare whole optionals (never dereference): clang-tidy's unchecked-optional-access
+    // analysis cannot see that a doctest REQUIRE aborts, so it flags even `.value()` after one.
     std::array<std::byte, 3> three{};
-    const std::optional<std::size_t> first = in.read(three); // spans a buffer refill
-    REQUIRE(first.has_value());
-    CHECK(first.value() == 3);
+    CHECK(in.read(three) == std::optional<std::size_t>{3}); // spans a buffer refill
 
     std::array<std::byte, 10> rest{};
-    const std::optional<std::size_t> second = in.read(rest); // only 3 left
-    REQUIRE(second.has_value());
-    CHECK(second.value() == 3);
-
-    const std::optional<std::size_t> third = in.read(rest); // EOF
-    REQUIRE(third.has_value());
-    CHECK(third.value() == 0);
+    CHECK(in.read(rest) == std::optional<std::size_t>{3}); // only 3 left
+    CHECK(in.read(rest) == std::optional<std::size_t>{0}); // EOF
     CHECK(in.eof());
 }
 
