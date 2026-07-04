@@ -19,6 +19,7 @@ _(newest first)_
 
 #### July
 
+- [2026-07-04 — JsonParser (roadmap 8.2) — Milestone 8 complete](2026/07/2026-07-04-json-parser.md)
 - [2026-07-03 — CliParser (roadmap 8.1)](2026/07/2026-07-03-cli-parser.md)
 - [2026-07-02 — Logger (roadmap 7.3) — Milestone 7 complete](2026/07/2026-07-02-logger.md)
 - [2026-07-02 — StackTrace (roadmap 7.2)](2026/07/2026-07-02-stack-trace.md)

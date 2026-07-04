@@ -69,7 +69,7 @@ setup.
 | 5 | Zero-Copy Strings | ✅ done |
 | 6 | Concurrency & Multithreading | ✅ done |
 | 7 | Diagnostics & Instrumentation | ✅ done |
-| 8 | Parsing & Input | ⏳ planned |
+| 8 | Parsing & Input | ✅ done |
 | 9 | I/O & Networking | ⏳ planned |
 | 10 | Hardening & 1.0 | ⏳ planned |
 

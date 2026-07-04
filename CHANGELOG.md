@@ -182,6 +182,19 @@ PR. A release PR moves the `[Unreleased]` entries into a new per-version file un
   help text are auto-generated. Header-only (touches no OS APIs). First Milestone-8 component.
   Added to the umbrella header. (The GoF Builder pattern remains rejected — the fluent
   interface is an idiom, per the `StringBuilder` precedent.)
+- `it/d4np/util/json_parser.hpp` (roadmap 8.2, component #23, ADR-0022): `JsonParser`, a
+  non-allocating, pull-style (SAX) JSON parser over a `std::string_view`. `next()` walks the
+  document once and returns a `JsonEvent` whose payload borrows the source — parsing copies
+  nothing and touches no heap; object/array nesting is tracked in a fixed
+  `std::array<Frame, MaxDepth>` (template `MaxDepth`, default 64) that also caps adversarial
+  depth. Scalars are borrowed raw and converted on demand: `to_number<T>` runs `std::from_chars`
+  (whole-token, so `1.5`→int fails), `to_bool` reads the literal, `decode_string` applies the
+  JSON escapes (`\uXXXX` incl. UTF-16 surrogate pairs → UTF-8) and allocates only the
+  destination string, only when asked. Malformed input latches a sticky `error` event with a
+  message and byte offset (`error_message()`/`error_offset()`) and never throws — the same
+  value-or-error boundary as `CliParser`. Strict RFC 8259 grammar (no trailing commas, no
+  leading zeros, control bytes must be escaped, one top-level value). Header-only (touches no
+  OS API). Completes Milestone 8. Added to the umbrella header.
 
 ### Changed
 

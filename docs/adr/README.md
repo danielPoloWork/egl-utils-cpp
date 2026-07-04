@@ -37,3 +37,4 @@ Status transitions: `Proposed` → `Accepted` → (`Superseded by ADR-XXXX` | `D
 | [0019](0019-stack-trace-compiled-tier-capture.md) | `StackTrace` compiled-tier capture with on-demand symbolization | Accepted |
 | [0020](0020-logger-async-pump-with-strategy-sinks.md) | `Logger` asynchronous single-pump design with Strategy sinks | Accepted |
 | [0021](0021-cli-parser-typed-binding-value-or-error.md) | `CliParser` typed variable-binding with a value-or-error boundary | Accepted |
+| [0022](0022-json-parser-non-allocating-pull-events.md) | `JsonParser` non-allocating pull (SAX) event model over string views | Accepted |
