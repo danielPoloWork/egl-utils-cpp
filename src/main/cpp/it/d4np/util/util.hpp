@@ -13,6 +13,7 @@
 #include <it/d4np/util/flat_set.hpp>
 #include <it/d4np/util/hash.hpp>
 #include <it/d4np/util/heap_array.hpp>
+#include <it/d4np/util/json_parser.hpp>
 #include <it/d4np/util/lock_free_queue.hpp>
 #include <it/d4np/util/logger.hpp>
 #include <it/d4np/util/object_pool.hpp>
