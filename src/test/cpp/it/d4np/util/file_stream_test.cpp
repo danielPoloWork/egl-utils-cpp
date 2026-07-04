@@ -141,16 +141,16 @@ TEST_CASE("read fills exactly what is asked, short only at EOF") {
     std::array<std::byte, 3> three{};
     const std::optional<std::size_t> first = in.read(three); // spans a buffer refill
     REQUIRE(first.has_value());
-    CHECK(*first == 3);
+    CHECK(first.value() == 3);
 
     std::array<std::byte, 10> rest{};
     const std::optional<std::size_t> second = in.read(rest); // only 3 left
     REQUIRE(second.has_value());
-    CHECK(*second == 3);
+    CHECK(second.value() == 3);
 
     const std::optional<std::size_t> third = in.read(rest); // EOF
     REQUIRE(third.has_value());
-    CHECK(*third == 0);
+    CHECK(third.value() == 0);
     CHECK(in.eof());
 }
 
