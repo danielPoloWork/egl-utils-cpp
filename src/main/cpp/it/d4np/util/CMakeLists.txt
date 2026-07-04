@@ -22,7 +22,7 @@ target_compile_features(egl-util INTERFACE cxx_std_20)
 # Gated behind EGL_UTIL_BUILD_STATIC so a header-only consumer pays for nothing. The archive
 # is named libegl-util.a regardless of the CMake target name.
 if(EGL_UTIL_BUILD_STATIC)
-    add_library(egl-util-static STATIC version.cpp stack_trace.cpp logger.cpp)
+    add_library(egl-util-static STATIC version.cpp stack_trace.cpp logger.cpp file_stream.cpp)
     add_library(egl-util::egl-util-static ALIAS egl-util-static)
     target_link_libraries(egl-util-static PUBLIC egl-util)
     set_target_properties(egl-util-static PROPERTIES OUTPUT_NAME egl-util)
