@@ -17,7 +17,8 @@ set(EGL_UTIL_TEST_SOURCES smoke_test.cpp type_traits_test.cpp hash_test.cpp uniq
                           flat_set_test.cpp flat_map_test.cpp circular_buffer_test.cpp
                           string_splitter_test.cpp string_builder_test.cpp string_formatter_test.cpp
                           semaphore_test.cpp reader_writer_lock_test.cpp task_future_test.cpp
-                          lock_free_queue_test.cpp thread_pool_test.cpp stopwatch_test.cpp)
+                          lock_free_queue_test.cpp thread_pool_test.cpp stopwatch_test.cpp
+                          cli_parser_test.cpp)
 
 # When the compiled tier is enabled, link against it (a strict superset of the interface
 # tier, ADR-0004) and exercise its compiled components: library_version(), StackTrace,

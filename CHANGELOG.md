@@ -169,6 +169,19 @@ PR. A release PR moves the `[Unreleased]` entries into a new per-version file un
   **Producer-Consumer** (adopted) and **Active Object** (rejected). The static tier now
   links `ws2_32` (Windows) and `Threads::Threads`. Added to the umbrella header. Completes
   Milestone 7.
+- `it/d4np/util/cli_parser.hpp` (roadmap 8.1, component #22, ADR-0021): `CliParser`, a typed
+  command-line argument parser with auto-generated help. Arguments are declared fluently and
+  each binds to a caller-owned variable (`add_flag`/`add_option`/`add_positional`); a
+  successful parse writes the converted value straight in, so there is no heterogeneous
+  result bag. Conversion goes through the `CliValue` concept — `std::string`, `bool`, every
+  standard integer, and `float`/`double`, all with whole-token validation (so `12x` is
+  rejected). `parse` returns a value-or-error `ParseResult` (success / `help_requested` / a
+  `CliError` code + message) and never throws on user input; only registration misuse throws
+  `std::logic_error`. GNU/POSIX grammar (`--long[=value]`, `-x`/`-xvalue`/`-x=value`,
+  clustered short flags, a `--` terminator, ordered positionals); `--help`/`-h` and aligned
+  help text are auto-generated. Header-only (touches no OS APIs). First Milestone-8 component.
+  Added to the umbrella header. (The GoF Builder pattern remains rejected — the fluent
+  interface is an idiom, per the `StringBuilder` precedent.)
 
 ### Changed
 
