@@ -4,11 +4,29 @@ name: ci
 # Implements the quality bar in AGENTS.md §10 across the toolchain matrix from the
 # language profile. The build/test commands drive CMakePresets.json; format and lint are
 # pinned to a fixed clang-tooling version for reproducibility.
+#
+# CI execution tiers (AGENTS.md §10) — to stay within the private-repo GitHub Actions
+# budget, the *build matrix* is tiered by event; every non-build gate (format, tidy,
+# consistency, sanitizers, valgrind, docs, benchmark) runs on every event, unchanged:
+#
+#   * pull_request  -> the "pr" tier: the full Linux set (gcc/clang, debug+release, plus
+#                      ASan/UBSan) and one Windows/MSVC debug build. This is the fast,
+#                      cheap (1x/2x-cost) feedback loop for day-to-day PR iteration.
+#   * push to main  -> the "full" tier: the complete matrix, adding the 10x-billed macOS
+#     & schedule      (Apple Clang, debug+release) and the Windows release cell. Runs on
+#     & dispatch       every merge to main and nightly, so nothing lands on main without
+#                      the entire cross-platform matrix having gone green — the coverage is
+#                      preserved, only shifted off the per-push PR loop. Trigger it manually
+#                      on a branch with the "Run workflow" button (workflow_dispatch) to get
+#                      a full cross-platform run before merging when a change is risky.
 
 on:
   pull_request:
   push:
     branches: [main]
+  schedule:
+    - cron: "0 6 * * *" # nightly full-matrix backstop, 06:00 UTC
+  workflow_dispatch: # on-demand full-matrix run (e.g. before merging a risky PR)
   workflow_call:
 
 permissions:
@@ -27,26 +45,43 @@ env:
 
 jobs:
   # ---------------------------------------------------------------------------
-  # Cross-platform build + test matrix (from the language profile).
+  # Pick the build matrix for this event: the cheap "pr" subset on pull_request,
+  # the full cross-platform matrix everywhere else (push to main, nightly, dispatch,
+  # reusable-workflow calls). See the CI execution tiers note at the top of this file.
+  # ---------------------------------------------------------------------------
+  setup:
+    name: setup / select build matrix
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    outputs:
+      matrix: ${{ steps.select.outputs.matrix }}
+      tier: ${{ steps.select.outputs.tier }}
+    steps:
+      - name: Select the matrix
+        id: select
+        shell: bash
+        run: |
+          pr='{"include":[{"os":"ubuntu-24.04","toolchain":"gcc","preset":"debug","cc":"gcc","cxx":"g++"},{"os":"ubuntu-24.04","toolchain":"gcc","preset":"release","cc":"gcc","cxx":"g++"},{"os":"ubuntu-24.04","toolchain":"gcc","preset":"asan","cc":"gcc","cxx":"g++"},{"os":"ubuntu-24.04","toolchain":"gcc","preset":"ubsan","cc":"gcc","cxx":"g++"},{"os":"ubuntu-24.04","toolchain":"clang","preset":"debug","cc":"clang","cxx":"clang++"},{"os":"ubuntu-24.04","toolchain":"clang","preset":"release","cc":"clang","cxx":"clang++"},{"os":"windows-2022","toolchain":"msvc","preset":"debug","cc":"cl","cxx":"cl"}]}'
+          full='{"include":[{"os":"ubuntu-24.04","toolchain":"gcc","preset":"debug","cc":"gcc","cxx":"g++"},{"os":"ubuntu-24.04","toolchain":"gcc","preset":"release","cc":"gcc","cxx":"g++"},{"os":"ubuntu-24.04","toolchain":"gcc","preset":"asan","cc":"gcc","cxx":"g++"},{"os":"ubuntu-24.04","toolchain":"gcc","preset":"ubsan","cc":"gcc","cxx":"g++"},{"os":"ubuntu-24.04","toolchain":"clang","preset":"debug","cc":"clang","cxx":"clang++"},{"os":"ubuntu-24.04","toolchain":"clang","preset":"release","cc":"clang","cxx":"clang++"},{"os":"windows-2022","toolchain":"msvc","preset":"debug","cc":"cl","cxx":"cl"},{"os":"windows-2022","toolchain":"msvc","preset":"release","cc":"cl","cxx":"cl"},{"os":"macos-14","toolchain":"apple-clang","preset":"debug","cc":"clang","cxx":"clang++"},{"os":"macos-14","toolchain":"apple-clang","preset":"release","cc":"clang","cxx":"clang++"}]}'
+          if [[ "${{ github.event_name }}" == "pull_request" ]]; then
+            echo "matrix=$pr" >> "$GITHUB_OUTPUT"
+            echo "tier=pr" >> "$GITHUB_OUTPUT"
+          else
+            echo "matrix=$full" >> "$GITHUB_OUTPUT"
+            echo "tier=full" >> "$GITHUB_OUTPUT"
+          fi
+
+  # ---------------------------------------------------------------------------
+  # Cross-platform build + test matrix (from the language profile), tiered by `setup`.
   # ---------------------------------------------------------------------------
   build:
     name: build / ${{ matrix.os }} / ${{ matrix.toolchain }} / ${{ matrix.preset }}
+    needs: setup
     runs-on: ${{ matrix.os }}
     timeout-minutes: 30
     strategy:
       fail-fast: false
-      matrix:
-        include:
-          - { os: ubuntu-24.04, toolchain: gcc, preset: debug, cc: gcc, cxx: g++ }
-          - { os: ubuntu-24.04, toolchain: gcc, preset: release, cc: gcc, cxx: g++ }
-          - { os: ubuntu-24.04, toolchain: gcc, preset: asan, cc: gcc, cxx: g++ }
-          - { os: ubuntu-24.04, toolchain: gcc, preset: ubsan, cc: gcc, cxx: g++ }
-          - { os: ubuntu-24.04, toolchain: clang, preset: debug, cc: clang, cxx: clang++ }
-          - { os: ubuntu-24.04, toolchain: clang, preset: release, cc: clang, cxx: clang++ }
-          - { os: windows-2022, toolchain: msvc, preset: debug, cc: cl, cxx: cl }
-          - { os: windows-2022, toolchain: msvc, preset: release, cc: cl, cxx: cl }
-          - { os: macos-14, toolchain: apple-clang, preset: debug, cc: clang, cxx: clang++ }
-          - { os: macos-14, toolchain: apple-clang, preset: release, cc: clang, cxx: clang++ }
+      matrix: ${{ fromJSON(needs.setup.outputs.matrix) }}
     env:
       CC: ${{ matrix.cc }}
       CXX: ${{ matrix.cxx }}

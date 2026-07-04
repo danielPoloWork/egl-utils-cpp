@@ -198,6 +198,14 @@ PR. A release PR moves the `[Unreleased]` entries into a new per-version file un
 
 ### Changed
 
+- CI: the build matrix is now tiered by event to fit the private-repo GitHub Actions budget
+  (`ci.yml`, AGENTS §10). Pull requests run the full Linux set (GCC & Clang, debug + release,
+  ASan, UBSan) plus a Windows/MSVC debug build; push-to-`main`, a nightly schedule, and manual
+  dispatch run the complete matrix, adding the 10×-billed macOS cells and the Windows-release
+  cell. No gate is removed — every non-build gate still runs on every event, and the full
+  cross-platform matrix runs on every merge to `main` — so coverage is preserved, only the
+  expensive platform cells are shifted off the per-push PR loop (~70% less per-PR build-matrix
+  weight, i.e. runner-multiplier-weighted cell cost: macOS bills 10×, Windows 2×, Linux 1×).
 - Tests: `util_tests` now defines `DOCTEST_CONFIG_USE_STD_HEADERS` so doctest includes the
   real `<ostream>`/`<istream>` instead of forward-declaring std types, which recent standard
   libraries reject once a translation unit also pulls in `<string_view>`.

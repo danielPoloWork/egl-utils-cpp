@@ -231,7 +231,7 @@ Every PR must clear, at minimum:
 
 | Gate | Requirement |
 |---|---|
-| Build matrix | Linux x86_64 (GCC>=11, Clang>=14), Windows x86_64 (MSVC>=19.30), macOS arm64 (Apple Clang>=14) — every CI cell green |
+| Build matrix | Linux x86_64 (GCC>=11, Clang>=14), Windows x86_64 (MSVC>=19.30), macOS arm64 (Apple Clang>=14) — every CI cell green (tiered by event, see below) |
 | Warnings | zero, treated as errors on the diff |
 | Lint | `clang-tidy (bugprone/cert/cppcoreguidelines/modernize/performance/portability/readability)` clean on the diff; no broad disables |
 | Format | `clang-format (LLVM-derived, 4-space, 120 col)` clean |
@@ -245,6 +245,23 @@ Every PR must clear, at minimum:
 
 Shortcuts ("just disable the warning", "tests next PR", "docs follow-up") are not allowed.
 If something is genuinely out of scope, file it as a new `ROADMAP.md` item in the same PR.
+
+**CI execution tiers.** The repository is private, so GitHub-hosted Actions minutes are
+capped and the 10×-billed macOS runners dominate the bill. To keep the per-PR loop within
+budget, the **build matrix** is tiered by event in
+[`.github/workflows/ci.yml`](.github/workflows/ci.yml) — but **no gate is removed, only
+rescheduled**, and every non-build gate (warnings, lint, format, tests, ASan/UBSan/TSan,
+Valgrind, docs, benchmark, congruence) runs on **every** event unchanged:
+
+- **On a pull request:** the full Linux set (GCC & Clang, debug + release, plus the ASan and
+  UBSan presets) and a Windows/MSVC debug build. This is the fast, cheap feedback loop.
+- **On push to `main` (post-merge), a nightly schedule, and manual dispatch:** the **complete**
+  matrix, adding the macOS (Apple Clang, debug + release) and Windows-release cells.
+
+Because merges to `main` and the nightly run exercise the whole cross-platform matrix, nothing
+lands on `main` without every cell having been green — the coverage is preserved, just shifted
+off the per-push PR loop. When a change is platform-risky, run the full matrix on the branch
+before merging via the workflow's **Run workflow** button (`workflow_dispatch`).
 
 ## 11. Versioning & Release
 
