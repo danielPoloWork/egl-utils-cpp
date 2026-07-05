@@ -23,6 +23,4 @@ One report per measured scenario, from [`template.md`](template.md). Keep the in
 
 | Date | Scenario | Version | Headline result | Report |
 |------|----------|---------|-----------------|--------|
-| —    | —        | —       | —               | —      |
-
-_No benchmarks recorded yet._
+| 2026-07-05 | Suite baseline (8 header-only hot paths) | v0.0.0 | FlatMap lookup ~27 ns; StackAllocator alloc ~1.7 ns | [report](2026-07-05-suite-baseline.md) |
