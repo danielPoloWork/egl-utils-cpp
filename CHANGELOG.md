@@ -12,6 +12,10 @@ PR. A release PR moves the `[Unreleased]` entries into a new per-version file un
 
 ### Added
 
+- Documentation: ADR-0029 recording the library-wide error-handling policy (value-or-error
+  vs exceptions; why `std::expected` is not adopted at the C++20 floor), backing spec §5.
+  Opens Milestone 11 (Specification & Assurance Hardening).
+
 ### Changed
 
 ### Deprecated

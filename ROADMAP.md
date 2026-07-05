@@ -127,6 +127,31 @@ API freeze, full documentation, and the first stable release.
 - [x] 10.4 Tag and release v1.0.0 under SemVer.
 
 
+---
+
+## Milestone 11 — Specification & Assurance Hardening
+
+Close the gaps surfaced by the post-1.0 specification review: consolidate the error model,
+make the architecture and per-module contracts explicit, quantify performance targets, and
+document the security posture. Documentation- and assurance-focused; no public API breaks
+(the one spec/impl drift in 11.7 is reconciled in favor of the shipped API).
+
+- [x] 11.1 Record the library-wide error-handling policy (value-or-error vs exceptions,
+      why not `std::expected` at the C++20 floor) as an ADR, backing spec §5.
+- [ ] 11.2 Add a C4 component diagram grouping the 25 modules into their seven layers with
+      explicit dependency directions.
+- [ ] 11.3 Add a per-module contract table for all 25 components: thread-safety guarantee,
+      exception-safety level, allocation behavior, and algorithmic complexity.
+- [ ] 11.4 State a single distribution model with an explicit ABI-stability policy for the
+      compiled tier (augment ADR-0004 / spec §1); remove any header-only vs compiled ambiguity.
+- [ ] 11.5 Add a security section: threat model for the untrusted-input components
+      (BinarySerializer, CliParser, JsonParser), fuzzing harnesses (libFuzzer targets), and a
+      SHA-256 non-cryptographic scoping statement with extended NIST test-vector validation.
+- [ ] 11.6 Turn the benchmark baselines into documented numeric targets/regression thresholds
+      with a stated methodology (warm-up, reps, p99) on the existing Stopwatch harness.
+- [ ] 11.7 Fix the spec §3 example so it compiles and actually demonstrates constexpr `FlatMap`
+      construction; reconcile the §5 `find` wording with the shipped iterator-returning API.
+
 
 ---
 
@@ -138,9 +163,9 @@ progress · ✅ done · ❎ N/A.
 
 | Spec § | Requirement | Roadmap items | Status |
 |--------|-------------|---------------|--------|
-| §1 | Objective & business context | 1.1, 10.4 | ✅ |
+| §1 | Objective & business context | 1.1, 10.4, 11.4 | ✅ |
 | §2 | Functional requirements | 1.1, 1.2, 3.1, 3.2, 3.3, 3.4, 4.1, 4.2, 4.3, 5.1, 5.2, 5.3, 6.1, 6.2, 6.3, 6.4, 6.5, 7.1, 7.2, 7.3, 8.1, 8.2, 9.1, 9.2, 9.3 | ⏳ |
-| §3 | Non-functional requirements | 1.3, 1.4, 10.2 | ⏳ |
-| §4 | Logical architecture | 1.1, 1.8 | ⏳ |
-| §5 | Public interface | 1.2, 3.1, 3.2, 3.3, 3.4, 4.1, 4.2, 4.3, 5.1, 5.2, 5.3, 6.1, 6.2, 6.3, 6.4, 6.5, 7.1, 7.2, 7.3, 8.1, 8.2, 9.1, 9.2, 9.3, 10.1 | ⏳ |
-| §6 | Verification & test strategy | 1.2, 1.4, 10.2, 10.3 | ⏳ |
+| §3 | Non-functional requirements | 1.3, 1.4, 10.2, 11.6 | ⏳ |
+| §4 | Logical architecture | 1.1, 1.8, 11.2 | ⏳ |
+| §5 | Public interface | 1.2, 3.1, 3.2, 3.3, 3.4, 4.1, 4.2, 4.3, 5.1, 5.2, 5.3, 6.1, 6.2, 6.3, 6.4, 6.5, 7.1, 7.2, 7.3, 8.1, 8.2, 9.1, 9.2, 9.3, 10.1, 11.1, 11.3, 11.7 | ⏳ |
+| §6 | Verification & test strategy | 1.2, 1.4, 10.2, 10.3, 11.5 | ⏳ |

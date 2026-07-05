@@ -72,6 +72,7 @@ setup.
 | 8 | Parsing & Input | ✅ done |
 | 9 | I/O & Networking | ✅ done |
 | 10 | Hardening & 1.0 | ✅ done |
+| 11 | Specification & Assurance Hardening | 🚧 in progress |
 
 
 ## License
