@@ -149,7 +149,7 @@ document the security posture. Documentation- and assurance-focused; no public A
       SHA-256 non-cryptographic scoping statement with extended NIST test-vector validation.
 - [x] 11.6 Turn the benchmark baselines into documented numeric targets/regression thresholds
       with a stated methodology (warm-up, reps, p99) on the existing Stopwatch harness.
-- [ ] 11.7 Fix the spec §3 example so it compiles and actually demonstrates constexpr `FlatMap`
+- [x] 11.7 Fix the spec §3 example so it compiles and actually demonstrates constexpr `FlatMap`
       construction; reconcile the §5 `find` wording with the shipped iterator-returning API.
 
 

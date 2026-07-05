@@ -46,6 +46,11 @@ PR. A release PR moves the `[Unreleased]` entries into a new per-version file un
 
 ### Fixed
 
+- Documentation: reconciled the spec §5 error-model wording with the shipped API — `FlatMap::find`
+  returns a `const_iterator` (compared to `end()`), not an "optional-like result"; added a
+  compile-verified constexpr `FlatMap` example (test + `flat_map.hpp` Doxygen) so the illustrative
+  example matches its "constexpr" title (roadmap 11.7, closes Milestone 11).
+
 ### Security
 
 ---
