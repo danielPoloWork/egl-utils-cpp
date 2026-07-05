@@ -78,7 +78,7 @@ struct JsonEvent {
 /// ```cpp
 /// it::d4np::util::JsonParser parser{R"({"n":42})"};
 /// for (auto ev = parser.next(); ev.type != JsonToken::end; ev = parser.next()) {
-///     if (ev.type == JsonToken::error) { /* parser.error_message(), parser.error_offset() */ break; }
+///     if (ev.type == JsonToken::error) { break; } // parser.error_message(), parser.error_offset()
 ///     if (ev.type == JsonToken::number) { const auto n = JsonParser::to_number<int>(ev.text); }
 /// }
 /// ```

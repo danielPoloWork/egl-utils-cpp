@@ -6,7 +6,7 @@ its section with a fresh `<milestone>.<task>` number; never renumber.
 
 - **Versioning start:** pre-1.0 milestone-driven.
 - **Session journal:** see [`docs/journal/`](docs/journal/). Latest checkpoint:
-  [2026-07-05 — TcpSocket / TcpServer](docs/journal/2026/07/2026-07-05-tcp-socket.md).
+  [2026-07-05 — API freeze & Doxygen gate](docs/journal/2026/07/2026-07-05-api-freeze-doxygen.md).
 
 ---
 
@@ -121,7 +121,7 @@ RAII file I/O, async networking, and binary serialization (the OS-API-heavy comp
 
 API freeze, full documentation, and the first stable release.
 
-- [ ] 10.1 Freeze the public API and document every public type with Doxygen.
+- [x] 10.1 Freeze the public API and document every public type with Doxygen.
 - [ ] 10.2 Complete the benchmark suite and publish baseline results under docs/benchmarks/.
 - [ ] 10.3 Achieve >=80% line coverage across all modules.
 - [ ] 10.4 Tag and release v1.0.0 under SemVer.
@@ -142,5 +142,5 @@ progress · ✅ done · ❎ N/A.
 | §2 | Functional requirements | 1.1, 1.2, 3.1, 3.2, 3.3, 3.4, 4.1, 4.2, 4.3, 5.1, 5.2, 5.3, 6.1, 6.2, 6.3, 6.4, 6.5, 7.1, 7.2, 7.3, 8.1, 8.2, 9.1, 9.2, 9.3 | ⏳ |
 | §3 | Non-functional requirements | 1.3, 1.4 | ⏳ |
 | §4 | Logical architecture | 1.1, 1.8 | ⏳ |
-| §5 | Public interface | 1.2, 3.1, 3.2, 3.3, 3.4, 4.1, 4.2, 4.3, 5.1, 5.2, 5.3, 6.1, 6.2, 6.3, 6.4, 6.5, 7.1, 7.2, 7.3, 8.1, 8.2, 9.1, 9.2, 9.3 | ⏳ |
+| §5 | Public interface | 1.2, 3.1, 3.2, 3.3, 3.4, 4.1, 4.2, 4.3, 5.1, 5.2, 5.3, 6.1, 6.2, 6.3, 6.4, 6.5, 7.1, 7.2, 7.3, 8.1, 8.2, 9.1, 9.2, 9.3, 10.1 | ⏳ |
 | §6 | Verification & test strategy | 1.2, 1.4 | ⏳ |

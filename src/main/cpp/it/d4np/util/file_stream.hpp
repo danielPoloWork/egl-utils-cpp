@@ -39,9 +39,9 @@ enum class FileMode : std::uint8_t {
 ///
 /// ```cpp
 /// auto out = it::d4np::util::FileStream::open("log.txt", it::d4np::util::FileMode::write);
-/// if (!out.is_open()) { /* out.error() holds the OS code */ }
+/// if (!out.is_open()) { } // out.error() holds the OS code
 /// out.write(std::string_view{"hello\n"});
-/// if (!out.close()) { /* a buffered write failed to reach disk */ }
+/// if (!out.close()) { } // a buffered write failed to reach disk
 /// ```
 ///
 /// **Error model.** A normal I/O failure (file missing, disk full, permission denied) is

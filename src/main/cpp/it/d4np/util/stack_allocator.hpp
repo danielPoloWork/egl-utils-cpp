@@ -45,6 +45,7 @@ template <std::size_t Size> class StackAllocator {
     ~StackAllocator() = default;
 
     /// Allocates `bytes` of storage aligned to `alignment`.
+    /// @param bytes the number of bytes to allocate.
     /// @param alignment a power of two (asserted in debug builds).
     /// @return a pointer to uninitialized, suitably-aligned storage.
     /// @throws std::bad_alloc if the remaining capacity cannot satisfy the request.
