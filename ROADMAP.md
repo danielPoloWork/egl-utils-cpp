@@ -142,7 +142,7 @@ document the security posture. Documentation- and assurance-focused; no public A
       explicit dependency directions.
 - [x] 11.3 Add a per-module contract table for all 25 components: thread-safety guarantee,
       exception-safety level, allocation behavior, and algorithmic complexity.
-- [ ] 11.4 State a single distribution model with an explicit ABI-stability policy for the
+- [x] 11.4 State a single distribution model with an explicit ABI-stability policy for the
       compiled tier (augment ADR-0004 / spec §1); remove any header-only vs compiled ambiguity.
 - [ ] 11.5 Add a security section: threat model for the untrusted-input components
       (BinarySerializer, CliParser, JsonParser), fuzzing harnesses (libFuzzer targets), and a

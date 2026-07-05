@@ -45,3 +45,4 @@ Status transitions: `Proposed` → `Accepted` → (`Superseded by ADR-XXXX` | `D
 | [0027](0027-benchmark-suite-stopwatch-harness.md) | Benchmark suite on a dependency-free Stopwatch harness | Accepted |
 | [0028](0028-line-coverage-gate-gcovr-80-percent.md) | Line-coverage gate — gcovr in CI at ≥80%, OpenCppCoverage locally | Accepted |
 | [0029](0029-error-handling-policy.md) | Library-wide error-handling policy (value-or-error vs exceptions) | Accepted |
+| [0030](0030-abi-stability-policy.md) | Distribution model & ABI-stability policy | Accepted |

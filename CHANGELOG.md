@@ -21,6 +21,10 @@ PR. A release PR moves the `[Unreleased]` entries into a new per-version file un
 - Documentation: `docs/architecture/component-contracts.md` — a per-component contract table
   (thread-safety, exception-safety, allocation behavior, algorithmic complexity) for all 25
   components (roadmap 11.3).
+- Documentation: ADR-0030 — distribution model & ABI-stability policy: names the single hybrid
+  model (header-only + optional STATIC superset) and states an API/source-stability guarantee
+  under SemVer with no cross-toolchain binary-ABI promise (source distribution). Spec §1/§3 and
+  `maintenance.md` reworded to match (roadmap 11.4).
 
 ### Changed
 
