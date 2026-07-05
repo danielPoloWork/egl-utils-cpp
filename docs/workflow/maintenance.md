@@ -8,9 +8,11 @@ the agent-vs-human boundary is [`AGENTS.md`](../../AGENTS.md) §11.
 ## What the version number protects
 
 The "public API" the version protects is the project's stable surface: the
-public functions/types/endpoints and any documented compatibility guarantees (incl. ABI
-where applicable), plus any user-visible configuration knobs and the
-package/target name.
+public functions/types/endpoints and any documented compatibility guarantees, plus any
+user-visible configuration knobs and the package/target names. This is the **API/source**
+surface; the project deliberately makes **no cross-toolchain binary-ABI guarantee** (both tiers
+are source-distributed and built by the consumer) — the full distribution & ABI-stability policy
+is [ADR-0030](../adr/0030-abi-stability-policy.md).
 
 ## Decision tree — which level?
 

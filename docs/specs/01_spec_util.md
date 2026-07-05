@@ -5,7 +5,9 @@
 
 ## 1. Objective & Business Context
 
-egl-util-cpp is a header-only (with optional partial compilation) C++20 library for building high-performance systems with controlled resource allocation and advanced concurrency. It targets open-source C++ developers who need a zero-dependency, cache-friendly, leak-free toolkit spanning allocation, concurrency, zero-copy strings, contiguous containers, I/O & networking, diagnostics, and parsing without pulling in a heavyweight framework. The design rests on three pillars: strict RAII for safe resource lifetimes, zero-copy data flow (move semantics, std::string_view, std::span), and compile-time optimization via SFINAE/Concepts and constexpr.
+egl-util-cpp is a C++20 library for building high-performance systems with controlled resource allocation and advanced concurrency. It targets open-source C++ developers who need a zero-dependency, cache-friendly, leak-free toolkit spanning allocation, concurrency, zero-copy strings, contiguous containers, I/O & networking, diagnostics, and parsing without pulling in a heavyweight framework. The design rests on three pillars: strict RAII for safe resource lifetimes, zero-copy data flow (move semantics, std::string_view, std::span), and compile-time optimization via SFINAE/Concepts and constexpr.
+
+**Distribution — one hybrid model, not two.** The library is **header-only by default**, with an **optional compiled (STATIC) tier** that is a strict opt-in *superset* of the same source tree for the OS-API-heavy components — the two tiers are additive, never mutually exclusive ([ADR-0004](../adr/0004-adopt-hybrid-header-only-plus-static-build-model.md)). Both tiers are distributed as **source** and built by the consumer with the consumer's own toolchain; the API/source surface is stable under SemVer, and cross-toolchain binary ABI is explicitly not guaranteed — build from one version of the source with one toolchain ([ADR-0030](../adr/0030-abi-stability-policy.md)).
 
 ## 2. Functional Requirements
 
@@ -46,7 +48,7 @@ egl-util-cpp is a header-only (with optional partial compilation) C++20 library 
 - No undefined behavior: clean under UBSanitizer; clang-tidy runs warnings-as-errors.
 - Cross-platform support: Linux (GCC>=11, Clang>=14), Windows (MSVC>=19.30), macOS arm64 (Apple Clang>=14).
 - C++20 standard; header-only by default with opt-in compiled translation units for OS-API-heavy components (networking, async Logger, StackTrace).
-- Stable, documented public API (Doxygen); SemVer once 1.0 is reached.
+- Stable, documented public API (Doxygen); SemVer once 1.0 is reached. The API/source surface is what SemVer protects; cross-toolchain binary ABI is not guaranteed (source distribution, build from one version with one toolchain) — see [ADR-0030](../adr/0030-abi-stability-policy.md).
 
 
 ## 4. Logical Architecture & Core Algorithm
