@@ -7,6 +7,7 @@
 #ifndef IT_D4NP_UTIL_UTIL_HPP
 #define IT_D4NP_UTIL_UTIL_HPP
 
+#include <it/d4np/util/binary_serializer.hpp>
 #include <it/d4np/util/circular_buffer.hpp>
 #include <it/d4np/util/cli_parser.hpp>
 #include <it/d4np/util/file_stream.hpp>
