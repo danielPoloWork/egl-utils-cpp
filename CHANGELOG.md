@@ -25,6 +25,10 @@ PR. A release PR moves the `[Unreleased]` entries into a new per-version file un
   model (header-only + optional STATIC superset) and states an API/source-stability guarantee
   under SemVer with no cross-toolchain binary-ABI promise (source distribution). Spec §1/§3 and
   `maintenance.md` reworded to match (roadmap 11.4).
+- Documentation: `docs/benchmarks/performance-targets.md` — numeric performance targets for the
+  eight benchmarked hot paths: machine-independent algorithmic-class invariants plus relative
+  regression thresholds (≤1.25× baseline median, p99 ≤2× median) with a stated methodology
+  (roadmap 11.6).
 
 ### Changed
 
