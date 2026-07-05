@@ -18,6 +18,7 @@
         "CMAKE_POLICY_VERSION_MINIMUM": "3.5",
         "EGL_UTIL_BUILD_TESTS": "ON",
         "EGL_UTIL_BUILD_BENCH": "ON",
+        "EGL_UTIL_BUILD_FUZZERS": "ON",
         "EGL_UTIL_BUILD_STATIC": "ON"
       }
     },
@@ -67,6 +68,17 @@
       "inherits": "release"
     },
     {
+      "name": "fuzz",
+      "inherits": "base",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "RelWithDebInfo",
+        "EGL_UTIL_FUZZER_ENGINE": "libfuzzer",
+        "EGL_UTIL_BUILD_TESTS": "OFF",
+        "EGL_UTIL_BUILD_BENCH": "OFF",
+        "EGL_UTIL_BUILD_STATIC": "OFF"
+      }
+    },
+    {
       "name": "coverage",
       "inherits": "debug",
       "cacheVariables": {
@@ -82,6 +94,7 @@
     { "name": "ubsan", "configurePreset": "ubsan" },
     { "name": "tsan", "configurePreset": "tsan" },
     { "name": "bench", "configurePreset": "bench" },
+    { "name": "fuzz", "configurePreset": "fuzz" },
     { "name": "coverage", "configurePreset": "coverage" }
   ],
   "testPresets": [

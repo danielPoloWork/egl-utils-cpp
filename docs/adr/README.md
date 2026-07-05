@@ -46,3 +46,4 @@ Status transitions: `Proposed` → `Accepted` → (`Superseded by ADR-XXXX` | `D
 | [0028](0028-line-coverage-gate-gcovr-80-percent.md) | Line-coverage gate — gcovr in CI at ≥80%, OpenCppCoverage locally | Accepted |
 | [0029](0029-error-handling-policy.md) | Library-wide error-handling policy (value-or-error vs exceptions) | Accepted |
 | [0030](0030-abi-stability-policy.md) | Distribution model & ABI-stability policy | Accepted |
+| [0031](0031-security-fuzzing-and-hash-scoping.md) | Fuzz-testing harnesses & non-cryptographic hash scoping | Accepted |

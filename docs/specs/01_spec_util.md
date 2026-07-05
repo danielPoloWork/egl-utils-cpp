@@ -104,3 +104,5 @@ Correctness and performance are proven mechanically, never asserted. Every compo
 Toolchain: built with CMake (>=3.20) + Ninja, CMakePresets.json, tested with doctest (FetchContent, test scope only), checked with
 ASan, UBSan, TSan, Valgrind, coverage target ≥ 80% line. Every functional and
 non-functional requirement above maps to a CI gate (see [`.github/workflows/ci.yml`](../../.github/workflows/ci.yml)).
+
+The untrusted-input components (JsonParser, CliParser, BinaryDeserializer) are additionally exercised by coverage-guided libFuzzer harnesses under ASan/UBSan (a short smoke run gates every PR); the threat model and the hash functions' non-cryptographic scope are in [`docs/security/threat-model.md`](../security/threat-model.md) and [ADR-0031](../adr/0031-security-fuzzing-and-hash-scoping.md). SHA-256 conformance is pinned to NIST FIPS 180-4 vectors.

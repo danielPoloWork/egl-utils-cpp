@@ -3,9 +3,14 @@
 //
 // Constexpr hash algorithms (component #24): FNV-1a (32/64-bit), MurmurHash3 (x86 32-bit),
 // and SHA-256. Every function is usable at compile time (e.g. to hash a string literal in a
-// switch or a static lookup table) and at run time. FNV-1a and MurmurHash3 are fast,
-// non-cryptographic hashes; SHA-256 is the cryptographic digest. None of these depend on
-// anything beyond the standard library.
+// switch or a static lookup table) and at run time. None of these depend on anything beyond
+// the standard library.
+//
+// SCOPE: all three are NON-CRYPTOGRAPHIC integrity/checksum utilities (ADR-0031). SHA-256 is a
+// standards-conformant digest for content-addressing, deduplication, corruption detection, and
+// interop/test vectors — it is NOT for passwords, MACs/HMAC, signatures, or any secret-dependent
+// decision. The constexpr, byte-oriented implementation is not constant-time and is not hardened
+// against side channels. FNV-1a and MurmurHash3 are additionally non-collision-resistant.
 #ifndef IT_D4NP_UTIL_HASH_HPP
 #define IT_D4NP_UTIL_HASH_HPP
 
@@ -103,6 +108,10 @@ inline constexpr std::array<std::uint32_t, 64> sha256_k = {
 } // namespace detail
 
 /// SHA-256 digest of `data`, returned as 32 raw bytes (big-endian per the standard).
+///
+/// @warning Non-cryptographic scope (ADR-0031): an integrity/checksum digest, not a security
+///          primitive. Not constant-time; do not use for passwords, MACs/HMAC, signatures, or any
+///          secret-dependent decision.
 [[nodiscard]] constexpr std::array<std::uint8_t, 32> sha256(std::string_view data) noexcept {
     std::array<std::uint32_t, 8> h = {0x6a09e667u, 0xbb67ae85u, 0x3c6ef372u, 0xa54ff53au,
                                       0x510e527fu, 0x9b05688cu, 0x1f83d9abu, 0x5be0cd19u};

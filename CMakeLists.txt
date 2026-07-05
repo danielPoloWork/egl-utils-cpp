@@ -21,6 +21,11 @@ endif()
 
 option(EGL_UTIL_BUILD_TESTS "Build the egl-util-cpp test suite" ${EGL_UTIL_IS_TOP_LEVEL})
 option(EGL_UTIL_BUILD_BENCH "Build the egl-util-cpp benchmark suite" ${EGL_UTIL_IS_TOP_LEVEL})
+# Fuzz harnesses for the untrusted-input components (ADR-0031). Built in standalone replay mode
+# by default (so they compile on the whole matrix and stay in the clang-tidy compile database);
+# set EGL_UTIL_FUZZER_ENGINE=libfuzzer with a Clang toolchain for coverage-guided fuzzing.
+option(EGL_UTIL_BUILD_FUZZERS "Build the egl-util-cpp fuzz harnesses" ${EGL_UTIL_IS_TOP_LEVEL})
+set(EGL_UTIL_FUZZER_ENGINE "" CACHE STRING "Fuzzing engine: '' (standalone replay) or 'libfuzzer'")
 option(EGL_UTIL_BUILD_DOCS "Add the 'docs' Doxygen target when Doxygen is available" ${EGL_UTIL_IS_TOP_LEVEL})
 # Header-only is the default contract; the compiled STATIC tier is strictly opt-in (ADR-0004).
 option(EGL_UTIL_BUILD_STATIC "Build the optional compiled STATIC library tier" OFF)
@@ -54,6 +59,10 @@ endif()
 
 if(EGL_UTIL_BUILD_BENCH)
     add_subdirectory(src/bench/cpp/it/d4np/util)
+endif()
+
+if(EGL_UTIL_BUILD_FUZZERS)
+    add_subdirectory(src/fuzz/cpp/it/d4np/util)
 endif()
 
 # --- API documentation (Doxygen) -----------------------------------------------------------

@@ -144,7 +144,7 @@ document the security posture. Documentation- and assurance-focused; no public A
       exception-safety level, allocation behavior, and algorithmic complexity.
 - [x] 11.4 State a single distribution model with an explicit ABI-stability policy for the
       compiled tier (augment ADR-0004 / spec §1); remove any header-only vs compiled ambiguity.
-- [ ] 11.5 Add a security section: threat model for the untrusted-input components
+- [x] 11.5 Add a security section: threat model for the untrusted-input components
       (BinarySerializer, CliParser, JsonParser), fuzzing harnesses (libFuzzer targets), and a
       SHA-256 non-cryptographic scoping statement with extended NIST test-vector validation.
 - [x] 11.6 Turn the benchmark baselines into documented numeric targets/regression thresholds

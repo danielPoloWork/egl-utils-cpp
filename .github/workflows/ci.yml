@@ -187,6 +187,27 @@ jobs:
       - name: Build + test under ThreadSanitizer
         run: cmake --preset tsan && cmake --build --preset tsan && ctest --preset tsan --output-on-failure
 
+  # Security fuzzing smoke — libFuzzer harnesses for the untrusted-input components must build
+  # and survive a short, bounded run under ASan/UBSan (roadmap 11.5, ADR-0031). Deeper campaigns
+  # run out-of-band; this gate catches crashers on every PR while staying minutes-cheap.
+  fuzz:
+    name: fuzz / libfuzzer smoke
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    env: { CC: clang, CXX: clang++ }
+    steps:
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+      - uses: lukka/get-cmake@591817e96fcad43505fb4eae36172462abb3a42e # v4.3.3
+      - name: Build the fuzz harnesses (Clang + libFuzzer)
+        run: cmake --preset fuzz && cmake --build --preset fuzz
+      - name: Run each harness for a bounded time
+        shell: bash
+        run: |
+          for t in fuzz_json_parser fuzz_cli_parser fuzz_binary_serializer; do
+            echo "== $t =="
+            ./build/fuzz/"$t" -max_total_time=20 -rss_limit_mb=2048 -print_final_stats=1
+          done
+
   # Line-coverage gate — the library must stay at >= 80% line coverage (roadmap 10.3, ADR-0028).
   coverage:
     name: coverage / line >= 80%

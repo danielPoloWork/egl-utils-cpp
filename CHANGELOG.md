@@ -29,8 +29,16 @@ PR. A release PR moves the `[Unreleased]` entries into a new per-version file un
   eight benchmarked hot paths: machine-independent algorithmic-class invariants plus relative
   regression thresholds (≤1.25× baseline median, p99 ≤2× median) with a stated methodology
   (roadmap 11.6).
+- Security: coverage-guided libFuzzer harnesses for the untrusted-input components (`JsonParser`,
+  `CliParser`, `BinaryDeserializer`) under `src/fuzz/`, gated by `EGL_UTIL_BUILD_FUZZERS` with a
+  `fuzz` preset and a CI smoke job; a threat model (`docs/security/threat-model.md`); and extended
+  NIST FIPS 180-4 SHA-256 test vectors (ADR-0031, roadmap 11.5).
 
 ### Changed
+
+- Documentation: `hash.hpp` now states the hashes' **non-cryptographic** scope explicitly —
+  SHA-256 is an integrity/checksum digest, not a security primitive (not constant-time; not for
+  passwords/MACs/signatures). Corrects the prior "the cryptographic digest" wording (ADR-0031).
 
 ### Deprecated
 
