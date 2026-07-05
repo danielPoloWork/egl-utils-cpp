@@ -209,6 +209,16 @@ PR. A release PR moves the `[Unreleased]` entries into a new per-version file un
   `std::logic_error`, and a closed stream fails gracefully. No mandatory locking (POSIX-style
   sharing on Windows); `EINTR` retried. The static tier gains its fourth translation unit (no
   new link library). Added to the umbrella header.
+- `it/d4np/util/binary_serializer.hpp` (roadmap 9.2, component #18, ADR-0024):
+  `BinarySerializer` and `BinaryDeserializer`, an endianness-aware, zero-allocation binary codec
+  over caller-owned byte buffers. Header-only (pure `std::bit_cast` + a conditional byte reverse,
+  no OS API) and fully `constexpr`, so a `std::array`-backed buffer can be filled and read back at
+  compile time. The wire byte order is chosen at construction (`std::endian`, little by default);
+  `write<T>`/`read<T>` handle the `TriviallySerializable` scalars (integrals and IEC-559 floats),
+  `write_bytes`/`read_bytes` carry raw blocks (`read_bytes` returns a zero-copy view aliasing the
+  source). Value-or-error boundary: a write past the end writes nothing, returns `false`, and
+  latches `overflowed()`; a read past the end returns `std::nullopt` with the cursor unmoved —
+  neither throws. A `static_assert` rejects mixed-endian hosts. Added to the umbrella header.
 
 ### Changed
 

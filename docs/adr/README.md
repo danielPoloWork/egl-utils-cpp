@@ -39,3 +39,4 @@ Status transitions: `Proposed` → `Accepted` → (`Superseded by ADR-XXXX` | `D
 | [0021](0021-cli-parser-typed-binding-value-or-error.md) | `CliParser` typed variable-binding with a value-or-error boundary | Accepted |
 | [0022](0022-json-parser-non-allocating-pull-events.md) | `JsonParser` non-allocating pull (SAX) event model over string views | Accepted |
 | [0023](0023-file-stream-buffered-descriptor-single-direction.md) | `FileStream` buffered OS-descriptor wrapper, single-direction, compiled tier | Accepted |
+| [0024](0024-binary-serializer-endianness-aware-header-only-codec.md) | `BinarySerializer` endianness-aware, header-only, span-based codec | Accepted |
