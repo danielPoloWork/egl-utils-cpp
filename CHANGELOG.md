@@ -219,6 +219,17 @@ PR. A release PR moves the `[Unreleased]` entries into a new per-version file un
   source). Value-or-error boundary: a write past the end writes nothing, returns `false`, and
   latches `overflowed()`; a read past the end returns `std::nullopt` with the cursor unmoved —
   neither throws. A `static_assert` rejects mixed-endian hosts. Added to the umbrella header.
+- `it/d4np/util/tcp_socket.hpp` + `tcp_socket.cpp` (roadmap 9.3, component #17, ADR-0025):
+  `TcpSocket` and `TcpServer`, move-only RAII wrappers over a raw OS TCP socket, non-blocking by
+  default, with a portable one-descriptor poll readiness model (`::poll`/`::WSAPoll`). The
+  descriptor is type-erased behind an `std::intptr_t` in the header (BSD sockets in the `.cpp` on
+  POSIX, Winsock on Windows), so the socket headers never reach consumers (requires
+  `egl-util::egl-util-static`; Windows links `ws2_32`, already used by the logger). `connect`
+  initiates a non-blocking connect resolved by `wait_connected` (which uses `select`, since
+  `WSAPoll` cannot report a failed connect); `TcpServer::listen` binds an ephemeral or fixed port
+  (`local_port()`, `SO_REUSEADDR`) and `accept` hands back connected `TcpSocket`s. Value-or-error
+  boundary: `send`/`recv` return an `IoResult` separating `ok`/`closed`/`would_block`/`error`;
+  nothing throws. Closes Milestone 9. Added to the umbrella header.
 
 ### Changed
 

@@ -70,7 +70,7 @@ setup.
 | 6 | Concurrency & Multithreading | ✅ done |
 | 7 | Diagnostics & Instrumentation | ✅ done |
 | 8 | Parsing & Input | ✅ done |
-| 9 | I/O & Networking | ⏳ planned |
+| 9 | I/O & Networking | ✅ done |
 | 10 | Hardening & 1.0 | ⏳ planned |
 
 
