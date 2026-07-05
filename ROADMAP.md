@@ -138,7 +138,7 @@ document the security posture. Documentation- and assurance-focused; no public A
 
 - [x] 11.1 Record the library-wide error-handling policy (value-or-error vs exceptions,
       why not `std::expected` at the C++20 floor) as an ADR, backing spec §5.
-- [ ] 11.2 Add a C4 component diagram grouping the 25 modules into their seven layers with
+- [x] 11.2 Add a C4 component diagram grouping the 25 modules into their seven layers with
       explicit dependency directions.
 - [ ] 11.3 Add a per-module contract table for all 25 components: thread-safety guarantee,
       exception-safety level, allocation behavior, and algorithmic complexity.

@@ -75,6 +75,10 @@ Core algorithmic stance: contiguous storage for cache locality (FlatMap/FlatSet 
 arrays with binary search), lock-free structures for hot messaging paths, and constexpr
 evaluation for hashing and type introspection so cost moves from runtime to compile time.
 
+The **C4 Level-3 component view** — the seven modules and the actual internal dependency
+edges (a DAG whose cross-module edges terminate in the `strings`/`memory` foundations) — is
+maintained in [`docs/architecture/c4-component-diagram.md`](../architecture/c4-component-diagram.md).
+
 ## 5. Public Interface
 
 Consumers import via `#include <it/d4np/util/util.hpp>`. The public surface:

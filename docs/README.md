@@ -9,6 +9,7 @@ conversational context and scratch notes do not live here.
 | Path | Purpose |
 |---|---|
 | `docs/specs/` | Functional and technical specifications. Frozen contracts — diverging requires an ADR. |
+| `docs/architecture/` | Architecture views — the C4 component diagram and its dependency-graph rules. |
 | `docs/adr/` | Architecture Decision Records — one numbered file per decision. |
 | `docs/patterns/` | Living catalogue of design patterns + the canonical taxonomy. |
 | `docs/workflow/` | Git, documentation, release, and maintenance conventions. |
