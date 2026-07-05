@@ -91,7 +91,8 @@ Consumers import via `#include <it/d4np/util/util.hpp>`. The public surface:
 - I/O: it::d4np::util::FileStream, TcpSocket, TcpServer, BinarySerializer.
 - Diagnostics: it::d4np::util::Stopwatch, Logger, StackTrace.
 - Parsing: it::d4np::util::CliParser, JsonParser, HashAlgorithms, TypeTraits.
-- Error model: fallible operations return a value-or-error type (e.g. FlatMap::find returns an optional-like result); no exceptions cross module boundaries except where explicitly documented.
+- Error model: fallible operations return a value-or-error type (e.g. FlatMap::find returns an optional-like result); no exceptions cross module boundaries except where explicitly documented. The full policy is [ADR-0029](../adr/0029-error-handling-policy.md).
+- Per-component contracts (thread-safety, exception-safety, allocation behavior, and algorithmic complexity for all 25 components) are tabulated in [`docs/architecture/component-contracts.md`](../architecture/component-contracts.md).
 
 
 ## 6. Verification & Test Strategy

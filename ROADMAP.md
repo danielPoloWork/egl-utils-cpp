@@ -140,7 +140,7 @@ document the security posture. Documentation- and assurance-focused; no public A
       why not `std::expected` at the C++20 floor) as an ADR, backing spec §5.
 - [x] 11.2 Add a C4 component diagram grouping the 25 modules into their seven layers with
       explicit dependency directions.
-- [ ] 11.3 Add a per-module contract table for all 25 components: thread-safety guarantee,
+- [x] 11.3 Add a per-module contract table for all 25 components: thread-safety guarantee,
       exception-safety level, allocation behavior, and algorithmic complexity.
 - [ ] 11.4 State a single distribution model with an explicit ABI-stability policy for the
       compiled tier (augment ADR-0004 / spec §1); remove any header-only vs compiled ambiguity.
