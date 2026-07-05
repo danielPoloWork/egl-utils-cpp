@@ -10,10 +10,10 @@
 
 #include <string_view>
 
-#define D4NP_UTIL_VERSION_MAJOR 0
+#define D4NP_UTIL_VERSION_MAJOR 1
 #define D4NP_UTIL_VERSION_MINOR 0
 #define D4NP_UTIL_VERSION_PATCH 0
-#define D4NP_UTIL_VERSION_STRING "0.0.0"
+#define D4NP_UTIL_VERSION_STRING "1.0.0"
 
 namespace it::d4np::util {
 

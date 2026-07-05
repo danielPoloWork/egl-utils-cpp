@@ -13,5 +13,5 @@
 
 TEST_CASE("compiled library_version() agrees with the header-only version_string") {
     CHECK(it::d4np::util::library_version() == it::d4np::util::version_string);
-    CHECK(it::d4np::util::library_version() == std::string_view{"0.0.0"});
+    CHECK(it::d4np::util::library_version() == std::string_view{"1.0.0"});
 }
