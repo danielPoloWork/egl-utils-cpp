@@ -25,6 +25,14 @@ option(EGL_UTIL_BUILD_DOCS "Add the 'docs' Doxygen target when Doxygen is availa
 # Header-only is the default contract; the compiled STATIC tier is strictly opt-in (ADR-0004).
 option(EGL_UTIL_BUILD_STATIC "Build the optional compiled STATIC library tier" OFF)
 
+# Line-coverage instrumentation for the CI `coverage` gate (roadmap 10.3, ADR-0028). GCC/Clang
+# only (MSVC has no --coverage); a no-op elsewhere, so the option is safe to leave defined.
+option(EGL_UTIL_COVERAGE "Instrument for line coverage (GCC/Clang)" OFF)
+if(EGL_UTIL_COVERAGE AND CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
+    add_compile_options(--coverage -O0 -g)
+    add_link_options(--coverage)
+endif()
+
 # Emit a compile database for clang-tidy and editor tooling.
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 

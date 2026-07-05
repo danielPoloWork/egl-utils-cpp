@@ -65,6 +65,14 @@
     {
       "name": "bench",
       "inherits": "release"
+    },
+    {
+      "name": "coverage",
+      "inherits": "debug",
+      "cacheVariables": {
+        "EGL_UTIL_COVERAGE": "ON",
+        "EGL_UTIL_BUILD_STATIC": "ON"
+      }
     }
   ],
   "buildPresets": [
@@ -73,7 +81,8 @@
     { "name": "asan", "configurePreset": "asan" },
     { "name": "ubsan", "configurePreset": "ubsan" },
     { "name": "tsan", "configurePreset": "tsan" },
-    { "name": "bench", "configurePreset": "bench" }
+    { "name": "bench", "configurePreset": "bench" },
+    { "name": "coverage", "configurePreset": "coverage" }
   ],
   "testPresets": [
     {
@@ -99,6 +108,11 @@
     {
       "name": "tsan",
       "configurePreset": "tsan",
+      "output": { "outputOnFailure": true }
+    },
+    {
+      "name": "coverage",
+      "configurePreset": "coverage",
       "output": { "outputOnFailure": true }
     }
   ]

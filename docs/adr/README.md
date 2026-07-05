@@ -43,3 +43,4 @@ Status transitions: `Proposed` → `Accepted` → (`Superseded by ADR-XXXX` | `D
 | [0025](0025-tcp-socket-nonblocking-poll-readiness-compiled-tier.md) | `TcpSocket` / `TcpServer` non-blocking sockets, poll-based readiness, compiled tier | Accepted |
 | [0026](0026-freeze-public-api-and-enforce-doxygen-clean-build.md) | Freeze the 1.0 public API and enforce a warning-clean Doxygen build | Accepted |
 | [0027](0027-benchmark-suite-stopwatch-harness.md) | Benchmark suite on a dependency-free Stopwatch harness | Accepted |
+| [0028](0028-line-coverage-gate-gcovr-80-percent.md) | Line-coverage gate — gcovr in CI at ≥80%, OpenCppCoverage locally | Accepted |

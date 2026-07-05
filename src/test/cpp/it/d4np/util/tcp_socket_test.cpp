@@ -19,6 +19,7 @@
 #include <string>
 #include <string_view>
 #include <utility>
+#include <vector>
 
 namespace {
 
@@ -195,7 +196,106 @@ TEST_CASE("a closed socket fails gracefully without throwing") {
     CHECK(sock.recv(buf).status == IoStatus::error);
     CHECK(sock.send(std::string_view{"x"}).status == IoStatus::error);
     CHECK(sock.wait_readable(0) == WaitResult::error);
+    CHECK(sock.wait_writable(0) == WaitResult::error);
+    CHECK(sock.wait_connected(0) == WaitResult::error);
     CHECK_FALSE(sock.set_non_blocking(true));
     CHECK_FALSE(sock.shutdown_write());
     CHECK(sock.close()); // idempotent no-op
+}
+
+TEST_CASE("a closed server fails gracefully without throwing") {
+    TcpServer server; // default: closed
+    CHECK_FALSE(server.is_open());
+    CHECK(server.local_port() == 0);
+    CHECK(server.wait_readable(0) == WaitResult::error);
+    const std::optional<TcpSocket> none = server.accept();
+    CHECK_FALSE(none.has_value());
+    CHECK(server.close()); // idempotent no-op
+}
+
+TEST_CASE("a connect that fails immediately reports a closed socket") {
+    // Port 0 is not connectable, so ::connect fails at once (not "in progress") for every
+    // resolved address — exercising the connect loop's hard-failure path.
+    TcpSocket client = TcpSocket::connect("127.0.0.1", 0);
+    CHECK_FALSE(client.is_open());
+    CHECK(client.error() != 0);
+}
+
+TEST_CASE("send reports would_block once the kernel send buffer fills") {
+    TcpServer server = TcpServer::listen(0);
+    REQUIRE(server.is_open());
+    TcpSocket client = TcpSocket::connect("127.0.0.1", server.local_port());
+    REQUIRE(client.is_open());
+    TcpSocket peer = accept_one(server);
+    REQUIRE(client.wait_connected(timeout_ms) == WaitResult::ready);
+
+    // The peer never reads, so a non-blocking client eventually cannot enqueue more.
+    const std::vector<std::byte> block(std::size_t{64} * 1024);
+    IoStatus last = IoStatus::ok;
+    for (int i = 0; i < 4096 && last == IoStatus::ok; ++i) {
+        last = client.send(block).status;
+    }
+    CHECK(last == IoStatus::would_block);
+    CHECK(client.error() == 0); // would_block is not an error
+}
+
+TEST_CASE("a connected socket is writable, toggles blocking mode, and move-assigns") {
+    TcpServer server = TcpServer::listen(0);
+    REQUIRE(server.is_open());
+    TcpSocket client = TcpSocket::connect("127.0.0.1", server.local_port());
+    REQUIRE(client.is_open());
+    TcpSocket peer = accept_one(server);
+    REQUIRE(client.wait_connected(timeout_ms) == WaitResult::ready);
+
+    CHECK(client.wait_writable(timeout_ms) == WaitResult::ready);
+
+    CHECK(client.set_non_blocking(false));
+    CHECK_FALSE(client.non_blocking());
+    CHECK(client.set_non_blocking(true));
+    CHECK(client.non_blocking());
+
+    TcpSocket adopted;
+    adopted = std::move(client); // move-assignment adopts the connected descriptor
+    CHECK(adopted.is_open());
+    CHECK_FALSE(client.is_open()); // NOLINT(bugprone-use-after-move)
+    CHECK(adopted.wait_writable(timeout_ms) == WaitResult::ready);
+}
+
+TEST_CASE("an idle listener times out, accepts nothing, and move-assigns") {
+    TcpServer server = TcpServer::listen(0);
+    REQUIRE(server.is_open());
+
+    // No client has connected: wait_readable times out and accept would-block.
+    CHECK(server.wait_readable(50) == WaitResult::timed_out);
+    const std::optional<TcpSocket> none = server.accept();
+    CHECK_FALSE(none.has_value());
+    CHECK(server.error() == 0); // a would-block is not an error
+
+    const std::uint16_t port = server.local_port();
+    TcpServer adopted;
+    adopted = std::move(server); // move-assignment adopts the listening descriptor
+    CHECK(adopted.is_open());
+    CHECK_FALSE(server.is_open()); // NOLINT(bugprone-use-after-move)
+    CHECK(adopted.local_port() == port);
+}
+
+TEST_CASE("connecting to an unresolvable host fails cleanly") {
+    // The .invalid TLD (RFC 6761) never resolves, so getaddrinfo fails.
+    TcpSocket client = TcpSocket::connect("no-such-host.invalid", 80);
+    CHECK_FALSE(client.is_open());
+    CHECK(client.error() != 0);
+}
+
+TEST_CASE("a blocking-mode socket completes a round trip") {
+    TcpServer server = TcpServer::listen(0);
+    REQUIRE(server.is_open());
+    TcpSocket client = TcpSocket::connect("127.0.0.1", server.local_port(), /*non_blocking=*/false);
+    REQUIRE(client.is_open());
+    TcpSocket peer = accept_one(server); // inherits the listener's (non-blocking) mode
+
+    REQUIRE(send_all(peer, "blocking"));
+    std::array<std::byte, 16> buf{};
+    const auto got = client.recv(buf); // blocking: returns once the bytes above arrive
+    REQUIRE(got.status == IoStatus::ok);
+    CHECK(got.bytes >= 1);
 }
