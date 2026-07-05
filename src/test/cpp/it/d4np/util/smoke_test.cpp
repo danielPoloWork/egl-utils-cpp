@@ -12,8 +12,8 @@
 #include <string_view>
 
 TEST_CASE("version constants are coherent with the released version") {
-    CHECK(it::d4np::util::version_major == 0);
+    CHECK(it::d4np::util::version_major == 1);
     CHECK(it::d4np::util::version_minor == 0);
     CHECK(it::d4np::util::version_patch == 0);
-    CHECK(it::d4np::util::version_string == std::string_view{"0.0.0"});
+    CHECK(it::d4np::util::version_string == std::string_view{"1.0.0"});
 }

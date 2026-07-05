@@ -2,7 +2,7 @@
 
 > Header-only C++20 toolkit for high-performance systems: controlled allocation, advanced concurrency, zero-copy strings, contiguous containers, I/O & networking, diagnostics, and parsing.
 
-![Status](https://img.shields.io/badge/Status-v0.0.0-blue)
+![Status](https://img.shields.io/badge/Status-v1.0.0-blue)
 
 Part of the **Enterprise-Grade Libraries (EGL)** series. A
 library written in **C++20**, built and governed to an enterprise quality
@@ -71,7 +71,7 @@ setup.
 | 7 | Diagnostics & Instrumentation | ✅ done |
 | 8 | Parsing & Input | ✅ done |
 | 9 | I/O & Networking | ✅ done |
-| 10 | Hardening & 1.0 | ⏳ planned |
+| 10 | Hardening & 1.0 | ✅ done |
 
 
 ## License

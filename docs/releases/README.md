@@ -10,6 +10,4 @@ README badge.
 
 | Version | Date | Highlights | Notes |
 |---------|------|------------|-------|
-| —       | —    | —          | —     |
-
-_No releases yet — the first one lands when Milestone 1 ships._
+| v1.0.0 | 2026-07-05 | First stable release — 25 components, frozen API, full quality bar | [v1.0.0](v1.0.0.md) |
