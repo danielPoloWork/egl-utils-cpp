@@ -1,5 +1,13 @@
 # Security Policy
 
+## Threat model & posture
+
+The library's trust boundary, the attack surface of the untrusted-input components
+(`JsonParser`, `CliParser`, `BinaryDeserializer`), their mitigations, the fuzzing strategy, and
+the **non-cryptographic scope of the hash functions** (SHA-256 included) are documented in
+[`docs/security/threat-model.md`](docs/security/threat-model.md) (decisions in
+[ADR-0031](docs/adr/0031-security-fuzzing-and-hash-scoping.md)).
+
 ## Supported versions
 
 Until `egl-util-cpp` reaches `v1.0.0`, only the latest released minor line receives

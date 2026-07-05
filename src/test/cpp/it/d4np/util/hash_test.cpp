@@ -10,6 +10,7 @@
 
 #include <array>
 #include <cstdint>
+#include <string>
 #include <string_view>
 
 namespace {
@@ -47,8 +48,13 @@ constexpr bool hex_is(std::array<char, 64> got, std::string_view want) {
     return true;
 }
 
+// NIST FIPS 180-4 test vectors (ADR-0031). The empty, single-block, and 56-byte two-block
+// messages are checked at compile time; the one-million-'a' vector is checked at run time below
+// (a million constexpr iterations is an unreasonable constant-evaluation budget).
 static_assert(hex_is(u::sha256_hex(""), "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"));
 static_assert(hex_is(u::sha256_hex("abc"), "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad"));
+static_assert(hex_is(u::sha256_hex("abcdbcdecdefdefgefghfghighijhijkijkljklmklmnlmnomnopnopq"),
+                     "248d6a61d20638b8e5c026930c3e6039a33ce45964ff2167f6ecedd419db06c1"));
 
 } // namespace
 
@@ -60,4 +66,12 @@ TEST_CASE("non-cryptographic hashes match reference vectors") {
 
 TEST_CASE("SHA-256 matches the canonical 'abc' digest") {
     CHECK(hex_is(u::sha256_hex("abc"), "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad"));
+}
+
+TEST_CASE("SHA-256 matches the NIST two-block and one-million-'a' vectors") {
+    CHECK(hex_is(u::sha256_hex("abcdbcdecdefdefgefghfghighijhijkijkljklmklmnlmnomnopnopq"),
+                 "248d6a61d20638b8e5c026930c3e6039a33ce45964ff2167f6ecedd419db06c1"));
+
+    const std::string million_a(1000000, 'a');
+    CHECK(hex_is(u::sha256_hex(million_a), "cdc76e5c9914fb9281a1c7e284d73e67f1809a48a497200e046d39ccc7112cd0"));
 }
