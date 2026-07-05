@@ -10,4 +10,5 @@ README badge.
 
 | Version | Date | Highlights | Notes |
 |---------|------|------------|-------|
+| v1.1.0 | 2026-07-05 | Milestone 11 — spec & assurance hardening: error-model ADR, C4 diagram, contract table, ABI policy, fuzzing + threat model, perf targets | [v1.1.0](v1.1.0.md) |
 | v1.0.0 | 2026-07-05 | First stable release — 25 components, frozen API, full quality bar | [v1.0.0](v1.0.0.md) |
