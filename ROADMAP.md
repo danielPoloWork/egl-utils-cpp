@@ -147,7 +147,7 @@ document the security posture. Documentation- and assurance-focused; no public A
 - [ ] 11.5 Add a security section: threat model for the untrusted-input components
       (BinarySerializer, CliParser, JsonParser), fuzzing harnesses (libFuzzer targets), and a
       SHA-256 non-cryptographic scoping statement with extended NIST test-vector validation.
-- [ ] 11.6 Turn the benchmark baselines into documented numeric targets/regression thresholds
+- [x] 11.6 Turn the benchmark baselines into documented numeric targets/regression thresholds
       with a stated methodology (warm-up, reps, p99) on the existing Stopwatch harness.
 - [ ] 11.7 Fix the spec §3 example so it compiles and actually demonstrates constexpr `FlatMap`
       construction; reconcile the §5 `find` wording with the shipped iterator-returning API.

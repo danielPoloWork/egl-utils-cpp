@@ -17,6 +17,12 @@ are not evidence.
   against a recorded baseline on comparable hardware (note when CI hardware is too noisy to
   gate and the run is informational).
 
+## Targets
+
+The numeric performance contract — machine-independent algorithmic-class invariants plus relative
+regression thresholds (≤1.25× baseline median, p99 ≤2× median) for the eight benchmarked hot paths
+— is in [`performance-targets.md`](performance-targets.md).
+
 ## Results
 
 One report per measured scenario, from [`template.md`](template.md). Keep the index newest-first.
