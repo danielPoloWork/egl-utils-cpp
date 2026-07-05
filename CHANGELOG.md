@@ -231,6 +231,16 @@ PR. A release PR moves the `[Unreleased]` entries into a new per-version file un
   boundary: `send`/`recv` return an `IoResult` separating `ok`/`closed`/`would_block`/`error`;
   nothing throws. Closes Milestone 9. Added to the umbrella header.
 
+### Added
+
+- Benchmark suite (roadmap 10.2, ADR-0027): `src/bench/.../bench_main.cpp` grows from a stub into
+  eight micro-benchmarks of the header-only hot paths (`fnv1a_64`, `FlatMap::contains`,
+  `ObjectPool`, `LockFreeQueue`, `CircularBuffer`, `StackAllocator`, `StringBuilder`,
+  `BinarySerializer`), timed through a dependency-free harness (`benchmark_harness.hpp`) built on
+  the library's own `Stopwatch` (median + p99 per operation). First reproducible baselines
+  published under `docs/benchmarks/2026-07-05-suite-baseline.md`. The CI `benchmark` job builds
+  the suite; timings are measured on a recorded reference machine, not gated on noisy CI runners.
+
 ### Changed
 
 - Documentation (roadmap 10.1, ADR-0026): the 1.0 public API is **frozen** — the non-`detail`
