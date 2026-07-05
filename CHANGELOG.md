@@ -233,6 +233,12 @@ PR. A release PR moves the `[Unreleased]` entries into a new per-version file un
 
 ### Added
 
+- Line-coverage gate (roadmap 10.3, ADR-0028): a new CI `coverage` job (Linux/GCC) builds a
+  `coverage` CMake preset (`EGL_UTIL_COVERAGE` adds `--coverage` for GCC/Clang) and runs
+  `gcovr --filter src/main/cpp/ --fail-under-line 80`, failing below 80% overall. Baseline: 93.0%
+  overall line coverage with every module ≥80% (min `tcp_socket.cpp` 82.7%, raised from 65.6% by
+  new tests for its edge/error/blocking paths). Local measurement on the MSVC box uses
+  OpenCppCoverage. 220 tests / 3856 assertions.
 - Benchmark suite (roadmap 10.2, ADR-0027): `src/bench/.../bench_main.cpp` grows from a stub into
   eight micro-benchmarks of the header-only hot paths (`fnv1a_64`, `FlatMap::contains`,
   `ObjectPool`, `LockFreeQueue`, `CircularBuffer`, `StackAllocator`, `StringBuilder`,

@@ -186,3 +186,17 @@ jobs:
       - uses: lukka/get-cmake@591817e96fcad43505fb4eae36172462abb3a42e # v4.3.3
       - name: Build + test under ThreadSanitizer
         run: cmake --preset tsan && cmake --build --preset tsan && ctest --preset tsan --output-on-failure
+
+  # Line-coverage gate — the library must stay at >= 80% line coverage (roadmap 10.3, ADR-0028).
+  coverage:
+    name: coverage / line >= 80%
+    runs-on: ubuntu-24.04
+    env: { CC: gcc, CXX: g++ }
+    steps:
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+      - uses: lukka/get-cmake@591817e96fcad43505fb4eae36172462abb3a42e # v4.3.3
+      - run: sudo apt-get update && sudo apt-get install -y gcovr
+      - name: Build + test with coverage instrumentation
+        run: cmake --preset coverage && cmake --build --preset coverage && ctest --preset coverage
+      - name: Enforce line coverage >= 80% over src/main/cpp
+        run: gcovr --root . --filter 'src/main/cpp/' --print-summary --fail-under-line 80
