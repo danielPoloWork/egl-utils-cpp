@@ -59,13 +59,21 @@ if(EGL_UTIL_BUILD_DOCS)
         set(DOXYGEN_PROJECT_BRIEF "${PROJECT_DESCRIPTION}")
         set(DOXYGEN_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/docs/doxygen")
         set(DOXYGEN_RECURSIVE YES)
+        # EXTRACT_ALL renders the whole surface (incl. STL-conformance members that inherit their
+        # meaning); every public type carries a prose doc block, and WARN_AS_ERROR below keeps the
+        # documentation that exists well-formed and the build clean (roadmap 10.1, ADR-0026).
         set(DOXYGEN_EXTRACT_ALL YES)
         set(DOXYGEN_GENERATE_HTML YES)
         set(DOXYGEN_GENERATE_LATEX NO)
         set(DOXYGEN_QUIET YES)
-        set(DOXYGEN_USE_MDFILE_AS_MAINPAGE "${CMAKE_CURRENT_SOURCE_DIR}/README.md")
+        # Fail the docs build on any Doxygen warning: the 1.0 public API is frozen and every
+        # public symbol must stay documented (roadmap 10.1, ADR-0026).
+        set(DOXYGEN_WARN_AS_ERROR FAIL_ON_WARNINGS_PRINT)
+        # A curated, API-focused landing page rather than README.md — the README's repo-relative
+        # links resolve on GitHub but not inside the Doxygen input set.
+        set(DOXYGEN_USE_MDFILE_AS_MAINPAGE "${CMAKE_CURRENT_SOURCE_DIR}/docs/doxygen-mainpage.md")
         doxygen_add_docs(
-            docs "${CMAKE_CURRENT_SOURCE_DIR}/src/main/cpp" "${CMAKE_CURRENT_SOURCE_DIR}/README.md"
+            docs "${CMAKE_CURRENT_SOURCE_DIR}/src/main/cpp" "${CMAKE_CURRENT_SOURCE_DIR}/docs/doxygen-mainpage.md"
             COMMENT "Generating API documentation with Doxygen")
     else()
         message(STATUS "Doxygen not found; the 'docs' target is unavailable.")

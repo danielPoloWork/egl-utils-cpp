@@ -233,6 +233,14 @@ PR. A release PR moves the `[Unreleased]` entries into a new per-version file un
 
 ### Changed
 
+- Documentation (roadmap 10.1, ADR-0026): the 1.0 public API is **frozen** — the non-`detail`
+  surface of `it::d4np::util` reachable from `util.hpp` is the stable contract; post-1.0 changes
+  follow SemVer. The `docs` Doxygen target is now a hard gate (`WARN_AS_ERROR =
+  FAIL_ON_WARNINGS_PRINT`): a documentation regression fails the build. A curated API landing page
+  (`docs/doxygen-mainpage.md`) replaces README.md as the Doxygen mainpage (README's repo-relative
+  links can't resolve in the Doxygen input). Fixed the doc defects this surfaced: `/* … */`
+  C-comments inside ` ```cpp ` example fences (`file_stream.hpp`, `json_parser.hpp`) that broke
+  Doxygen's fence tracking, and an undocumented `bytes` parameter on `StackAllocator::allocate`.
 - Tests: `util_tests` now defines `DOCTEST_CONFIG_USE_STD_HEADERS` so doctest includes the
   real `<ostream>`/`<istream>` instead of forward-declaring std types, which recent standard
   libraries reject once a translation unit also pulls in `<string_view>`.
