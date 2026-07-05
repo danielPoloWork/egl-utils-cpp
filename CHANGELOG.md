@@ -15,6 +15,9 @@ PR. A release PR moves the `[Unreleased]` entries into a new per-version file un
 - Documentation: ADR-0029 recording the library-wide error-handling policy (value-or-error
   vs exceptions; why `std::expected` is not adopted at the C++20 floor), backing spec §5.
   Opens Milestone 11 (Specification & Assurance Hardening).
+- Documentation: `docs/architecture/c4-component-diagram.md` — the C4 Level-3 component view
+  of the 25 components across their seven modules, with the actual internal dependency edges
+  (roadmap 11.2).
 
 ### Changed
 
