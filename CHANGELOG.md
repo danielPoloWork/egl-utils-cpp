@@ -18,6 +18,9 @@ PR. A release PR moves the `[Unreleased]` entries into a new per-version file un
 - Documentation: `docs/architecture/c4-component-diagram.md` — the C4 Level-3 component view
   of the 25 components across their seven modules, with the actual internal dependency edges
   (roadmap 11.2).
+- Documentation: `docs/architecture/component-contracts.md` — a per-component contract table
+  (thread-safety, exception-safety, allocation behavior, algorithmic complexity) for all 25
+  components (roadmap 11.3).
 
 ### Changed
 
