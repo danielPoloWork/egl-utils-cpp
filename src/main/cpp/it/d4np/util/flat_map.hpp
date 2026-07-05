@@ -29,8 +29,21 @@ namespace it::d4np::util {
 /// key (e.g. in an initializer list) the first one wins.
 ///
 /// The entire interface is `constexpr`: a `FlatMap` can be built and queried inside a constant
-/// expression (e.g. behind a `static_assert`). See ADR-0009 (flat model) and ADR-0010 (the
-/// constexpr construction strategy).
+/// expression (e.g. behind a `static_assert`). `find` returns a `const_iterator` compared against
+/// `end()` (the STL-idiomatic result), not an optional:
+///
+/// ```cpp
+/// constexpr bool ok = [] {
+///     it::d4np::util::FlatMap<int, std::string_view> config;
+///     config.insert(1, "Service.Start");
+///     config.insert(2, "Service.Stop");
+///     const auto it = config.find(1);                     // const_iterator, not optional
+///     return it != config.end() && it->second == "Service.Start";
+/// }();
+/// static_assert(ok);
+/// ```
+///
+/// See ADR-0009 (flat model) and ADR-0010 (the constexpr construction strategy).
 ///
 /// @tparam Key the key type.
 /// @tparam Value the mapped type.

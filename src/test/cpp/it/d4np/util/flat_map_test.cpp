@@ -13,6 +13,7 @@
 #include <iterator>
 #include <stdexcept>
 #include <string>
+#include <string_view>
 #include <vector>
 
 namespace {
@@ -44,6 +45,18 @@ constexpr int subscript_inserts() {
     return map[5];
 }
 static_assert(subscript_inserts() == 55, "constexpr operator[] insert-then-update");
+
+// The spec's illustrative "constexpr FlatMap" example (spec §5 / the d4np-cpp intake §3),
+// corrected to the shipped iterator-returning `find` and proven here to compile *and* evaluate as
+// a constant expression — the example now matches its "constexpr" title (roadmap 11.7).
+constexpr bool config_map_example() {
+    FlatMap<int, std::string_view> config_map;
+    config_map.insert(1, "Service.Start");
+    config_map.insert(2, "Service.Stop");
+    const auto it = config_map.find(1); // find returns a const_iterator, not an optional
+    return it != config_map.end() && it->second == "Service.Start";
+}
+static_assert(config_map_example(), "constexpr FlatMap construction + iterator-based find");
 
 } // namespace
 
