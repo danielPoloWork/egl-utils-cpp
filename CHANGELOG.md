@@ -195,6 +195,20 @@ PR. A release PR moves the `[Unreleased]` entries into a new per-version file un
   value-or-error boundary as `CliParser`. Strict RFC 8259 grammar (no trailing commas, no
   leading zeros, control bytes must be escaped, one top-level value). Header-only (touches no
   OS API). Completes Milestone 8. Added to the umbrella header.
+- `it/d4np/util/file_stream.hpp` + `file_stream.cpp` (roadmap 9.1, component #16, ADR-0023):
+  `FileStream`, a move-only RAII wrapper over a single OS file descriptor with a caller-sized
+  owned buffer, opening the compiled STATIC tier for Milestone 9. The descriptor is type-erased
+  behind an `std::intptr_t` in the header (POSIX `open`/`read`/`write`/`close`, Windows
+  `CreateFileA`/`ReadFile`/`WriteFile`/`CloseHandle` in the `.cpp`), so the OS headers never
+  reach consumers (requires `egl-util::egl-util-static`, like `library_version()`). A stream is
+  opened read-only or write/append-only (`FileMode`) so the buffer stays single-direction;
+  `read`/`read_line` (CRLF-folding) serve from the buffer, `write` coalesces small writes and
+  bypasses the buffer for large blocks, `flush`/`close` push to the OS. Value-or-error boundary:
+  `open` failure yields a closed stream with `error()` set (native `errno`/`GetLastError()`),
+  `read`→`nullopt`, `write`/`flush`/`close`→`false`; wrong-direction use throws
+  `std::logic_error`, and a closed stream fails gracefully. No mandatory locking (POSIX-style
+  sharing on Windows); `EINTR` retried. The static tier gains its fourth translation unit (no
+  new link library). Added to the umbrella header.
 
 ### Changed
 

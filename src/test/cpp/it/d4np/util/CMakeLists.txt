@@ -24,7 +24,8 @@ set(EGL_UTIL_TEST_SOURCES smoke_test.cpp type_traits_test.cpp hash_test.cpp uniq
 # tier, ADR-0004) and exercise its compiled components: library_version(), StackTrace,
 # and Logger.
 if(EGL_UTIL_BUILD_STATIC)
-    list(APPEND EGL_UTIL_TEST_SOURCES library_version_test.cpp stack_trace_test.cpp logger_test.cpp)
+    list(APPEND EGL_UTIL_TEST_SOURCES library_version_test.cpp stack_trace_test.cpp logger_test.cpp
+         file_stream_test.cpp)
     set(EGL_UTIL_TEST_TIER egl-util::egl-util-static)
 else()
     set(EGL_UTIL_TEST_TIER egl-util::egl-util)
