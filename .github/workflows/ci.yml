@@ -55,7 +55,7 @@ jobs:
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
       - name: Install a recent CMake and Ninja
-        uses: lukka/get-cmake@f5b8fbb4d77cec1acc5a5f9f0df4beffaf5d98d9 # v4.3.4
+        uses: lukka/get-cmake@e6906078ebd1ccb8ce51ab4626ac46a1b5a517e3 # v4.4.0
       - name: Set up MSVC environment
         if: matrix.toolchain == 'msvc'
         uses: ilammy/msvc-dev-cmd@v1
@@ -117,7 +117,7 @@ jobs:
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with: { fetch-depth: 0 }
-      - uses: lukka/get-cmake@f5b8fbb4d77cec1acc5a5f9f0df4beffaf5d98d9 # v4.3.4
+      - uses: lukka/get-cmake@e6906078ebd1ccb8ce51ab4626ac46a1b5a517e3 # v4.4.0
       - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6.3.0
         with:
           python-version: '3.12'
@@ -139,7 +139,7 @@ jobs:
     env: { CC: gcc, CXX: g++ }
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-      - uses: lukka/get-cmake@f5b8fbb4d77cec1acc5a5f9f0df4beffaf5d98d9 # v4.3.4
+      - uses: lukka/get-cmake@e6906078ebd1ccb8ce51ab4626ac46a1b5a517e3 # v4.4.0
       - run: sudo apt-get update && sudo apt-get install -y valgrind
       - name: Configure + build the debug test binary
         run: cmake --preset debug && cmake --build --preset debug
@@ -158,7 +158,7 @@ jobs:
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - name: Install a recent CMake and Ninja
-        uses: lukka/get-cmake@f5b8fbb4d77cec1acc5a5f9f0df4beffaf5d98d9 # v4.3.4
+        uses: lukka/get-cmake@e6906078ebd1ccb8ce51ab4626ac46a1b5a517e3 # v4.4.0
       - name: Build the benchmark suite
         shell: bash
         run: cmake --preset bench && cmake --build --preset bench
@@ -170,7 +170,7 @@ jobs:
     env: { CC: gcc, CXX: g++ }
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-      - uses: lukka/get-cmake@f5b8fbb4d77cec1acc5a5f9f0df4beffaf5d98d9 # v4.3.4
+      - uses: lukka/get-cmake@e6906078ebd1ccb8ce51ab4626ac46a1b5a517e3 # v4.4.0
       - run: sudo apt-get update && sudo apt-get install -y doxygen graphviz
       - name: Configure + build the docs target
         shell: bash
@@ -183,7 +183,7 @@ jobs:
     env: { CC: clang, CXX: clang++ }
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-      - uses: lukka/get-cmake@f5b8fbb4d77cec1acc5a5f9f0df4beffaf5d98d9 # v4.3.4
+      - uses: lukka/get-cmake@e6906078ebd1ccb8ce51ab4626ac46a1b5a517e3 # v4.4.0
       - name: Build + test under ThreadSanitizer
         run: cmake --preset tsan && cmake --build --preset tsan && ctest --preset tsan --output-on-failure
 
@@ -197,7 +197,7 @@ jobs:
     env: { CC: clang, CXX: clang++ }
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-      - uses: lukka/get-cmake@f5b8fbb4d77cec1acc5a5f9f0df4beffaf5d98d9 # v4.3.4
+      - uses: lukka/get-cmake@e6906078ebd1ccb8ce51ab4626ac46a1b5a517e3 # v4.4.0
       - name: Build the fuzz harnesses (Clang + libFuzzer)
         run: cmake --preset fuzz && cmake --build --preset fuzz
       - name: Run each harness for a bounded time
@@ -215,7 +215,7 @@ jobs:
     env: { CC: gcc, CXX: g++ }
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-      - uses: lukka/get-cmake@f5b8fbb4d77cec1acc5a5f9f0df4beffaf5d98d9 # v4.3.4
+      - uses: lukka/get-cmake@e6906078ebd1ccb8ce51ab4626ac46a1b5a517e3 # v4.4.0
       - run: sudo apt-get update && sudo apt-get install -y gcovr
       - name: Build + test with coverage instrumentation
         run: cmake --preset coverage && cmake --build --preset coverage && ctest --preset coverage
